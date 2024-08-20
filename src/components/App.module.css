@@ -1,0 +1,32 @@
+.header {
+  width: 100%;
+  min-height: 80px;
+  padding: 0 15px;
+  background-color: hsla(0, 0%, 100%, 1);
+  color: hsla(0, 0%, 0%, 0.85);
+  font-size: 18px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  position: absolute;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  column-gap: 25px;
+}
+
+.authBtn,
+.regBtn {
+  text-transform: capitalize;
+}
+
+.regBtn {
+  padding: 10px 20px;
+  border: 1px solid hsla(100, 77%, 44%, 1);
+  border-radius: 5px;
+  color: hsla(100, 77%, 44%, 1);
+}
