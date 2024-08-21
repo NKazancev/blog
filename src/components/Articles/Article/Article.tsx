@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { nanoid } from '@reduxjs/toolkit';
 
 import { IArticle } from 'models/article';
@@ -6,7 +7,7 @@ import heartIcon from 'assets/heart-icon.svg';
 import * as classes from './Article.module.css';
 
 export default function Article(props: IArticle) {
-  const { title, tagList, description, author, favoritesCount } = props;
+  const { title, slug, tagList, description, author, favoritesCount } = props;
 
   const tags = tagList.map((tag) => (
     <li key={nanoid()} className={classes.tag}>
@@ -18,7 +19,9 @@ export default function Article(props: IArticle) {
     <li className={classes.article}>
       <div>
         <div className={classes.caption}>
-          <h3 className={classes.title}>{title}</h3>
+          <h3 className={classes.title}>
+            <Link to={`/articles/${slug}`}>{title}</Link>
+          </h3>
 
           <button type="button" className={classes.likesBtn}>
             <img src={heartIcon} alt="heart-icon" />
@@ -27,7 +30,6 @@ export default function Article(props: IArticle) {
         </div>
 
         <ul className={classes.tagList}>{tags}</ul>
-
         <p className={classes.desc}>{description}</p>
       </div>
 

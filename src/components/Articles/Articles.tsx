@@ -21,6 +21,7 @@ export default function Articles() {
     return (
       <Article
         key={nanoid()}
+        slug={article.slug}
         title={article.title}
         tagList={article.tagList}
         description={article.description}
