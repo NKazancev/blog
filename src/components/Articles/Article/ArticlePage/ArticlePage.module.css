@@ -1,0 +1,23 @@
+.container {
+  max-width: 938px;
+  margin: 0 auto;
+  padding-top: 100px;
+}
+
+.header {
+  padding: 15px;
+  background-color: white;
+  border-radius: 5px;
+
+  display: grid;
+  grid-template-columns: 1fr max-content;
+  grid-template-rows: 1fr;
+  align-items: start;
+  column-gap: 50px;
+}
+
+.title {
+  color: hsla(209, 100%, 55%, 1);
+  font-size: 18px;
+  word-break: break-word;
+}

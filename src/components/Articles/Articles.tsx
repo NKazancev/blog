@@ -23,16 +23,17 @@ export default function Articles() {
         key={nanoid()}
         slug={article.slug}
         title={article.title}
-        tagList={article.tagList}
-        description={article.description}
-        author={article.author}
         favoritesCount={article.favoritesCount}
+        description={article.description}
+        tagList={article.tagList}
+        author={article.author}
+        createdAt={article.createdAt}
       />
     );
   });
 
   return (
-    <div className={classes.articles}>
+    <div className={classes.container}>
       <ul className={classes.list}>{articlesList}</ul>
       <Pagination />
     </div>

@@ -1,0 +1,46 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.caption {
+  display: inline-flex;
+  align-items: center;
+  column-gap: 10px;
+  margin-bottom: 10px;
+}
+
+.likesBtn {
+  color: inherit;
+  font-size: 12px;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  column-gap: 5px;
+}
+
+.tagList {
+  margin-bottom: 10px;
+
+  display: flex;
+  align-items: start;
+  flex-wrap: wrap;
+  column-gap: 5px;
+  row-gap: 5px;
+}
+
+.tag {
+  padding: 2px 5px;
+  border: 1px solid hsla(0, 0%, 0%, 0.5);
+  border-radius: 5px;
+  color: hsla(0, 0%, 0%, 0.5);
+  font-size: 12px;
+}
+
+.desc {
+  font-size: 14px;
+  word-break: break-word;
+  color: hsla(0, 0%, 0%, 0.75);
+}

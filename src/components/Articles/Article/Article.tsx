@@ -1,44 +1,35 @@
 import { Link } from 'react-router-dom';
-import { nanoid } from '@reduxjs/toolkit';
 
 import { IArticle } from 'models/article';
-import heartIcon from 'assets/heart-icon.svg';
 
+import ArticleAuthor from './ArticleAuthor/ArticleAuthor';
+import ArticleDescription from './ArticleDescription/ArticleDescription';
 import * as classes from './Article.module.css';
 
 export default function Article(props: IArticle) {
-  const { title, slug, tagList, description, author, favoritesCount } = props;
-
-  const tags = tagList.map((tag) => (
-    <li key={nanoid()} className={classes.tag}>
-      {tag}
-    </li>
-  ));
+  const {
+    slug,
+    title,
+    description,
+    favoritesCount,
+    tagList,
+    author,
+    createdAt,
+  } = props;
 
   return (
     <li className={classes.article}>
-      <div>
-        <div className={classes.caption}>
-          <h3 className={classes.title}>
-            <Link to={`/articles/${slug}`}>{title}</Link>
-          </h3>
+      <ArticleDescription
+        description={description}
+        favoritesCount={favoritesCount}
+        tagList={tagList}
+      >
+        <h3 className={classes.title}>
+          <Link to={`/articles/${slug}`}>{title}</Link>
+        </h3>
+      </ArticleDescription>
 
-          <button type="button" className={classes.likesBtn}>
-            <img src={heartIcon} alt="heart-icon" />
-            <span>{favoritesCount}</span>
-          </button>
-        </div>
-
-        <ul className={classes.tagList}>{tags}</ul>
-        <p className={classes.desc}>{description}</p>
-      </div>
-
-      <div className={classes.user}>
-        <span>{author.username}</span>
-        <div className={classes.avatar}>
-          <img src={author.image} alt="avatar" />
-        </div>
-      </div>
+      <ArticleAuthor author={author} createdAt={createdAt} />
     </li>
   );
 }

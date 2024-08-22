@@ -1,15 +1,24 @@
 export interface IAuthor {
-  bio: string;
-  following: false;
-  image: string;
   username: string;
+  bio: string;
+  image: string;
+  following: false;
 }
 
-export interface IArticle {
-  slug: string;
+export interface IArticleAuthor {
   author: IAuthor;
+  createdAt: string;
+}
+
+export interface IArticleDescription {
   description: string;
   favoritesCount: number;
   tagList: Array<string>;
+  children?: React.ReactNode;
+}
+
+export interface IArticle extends IArticleAuthor, IArticleDescription {
+  slug: string;
   title: string;
+  body?: string;
 }
