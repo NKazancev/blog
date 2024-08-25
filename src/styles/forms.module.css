@@ -1,0 +1,101 @@
+.container {
+  margin: 0 auto;
+  padding-top: 140px;
+}
+
+.body {
+  padding: 45px 32px;
+  background-color: hsl(0, 0%, 100%);
+  border-radius: 5px;
+  color: hsla(0, 0%, 15%, 1);
+
+  box-shadow:
+    0px 0.61px 2.93px 0px rgba(0, 0, 0, 0.02),
+    0px 1.46px 7.05px 0px rgba(0, 0, 0, 0.03),
+    0px 2.75px 13.27px 0px rgba(0, 0, 0, 0.04),
+    0px 4.91px 23.68px 0px rgba(0, 0, 0, 0.04),
+    0px 9.19px 44.28px 0px rgba(0, 0, 0, 0.05),
+    0px 22px 106px 0px rgba(0, 0, 0, 0.07);
+}
+
+.title {
+  margin-bottom: 21px;
+  text-align: center;
+  text-transform: capitalize;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  row-gap: 21px;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  row-gap: 12px;
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+  row-gap: 2px;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.input {
+  padding: 11px 12px 9px 12px;
+  border: 1px solid hsla(0, 0%, 85%, 1);
+  border-radius: 5px;
+}
+
+.input::placeholder {
+  color: hsla(0, 0%, 75%, 1);
+  font-size: 16px;
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
+
+  color: hsla(0, 0%, 35%, 1);
+  font-size: 13px;
+  font-weight: 400;
+
+  cursor: pointer;
+}
+
+.checkboxInput {
+  position: relative;
+  top: -2px;
+  cursor: pointer;
+}
+
+.button {
+  width: 100%;
+  padding: 10px 0;
+  background-color: hsla(209, 100%, 55%, 1);
+  border-radius: 5px;
+
+  color: hsl(0, 0%, 100%);
+  font-size: 16px;
+  font-weight: 400;
+  cursor: pointer;
+}
+
+.notice {
+  margin-top: 8px;
+  text-align: center;
+  color: hsla(0, 0%, 55%, 1);
+  font-size: 12px;
+}
+
+.link {
+  margin-left: 2px;
+  text-transform: capitalize;
+  color: hsla(209, 100%, 55%, 1);
+}

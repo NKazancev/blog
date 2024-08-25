@@ -2,7 +2,7 @@ import { createHashRouter } from 'react-router-dom';
 
 import App from './components/App';
 import Articles from './components/Articles/Articles';
-import ArticlePage from './components/Articles/Article/ArticlePage/ArticlePage';
+import ArticlePage from './components/Articles/ArticlePage/ArticlePage';
 import Authorization from './components/Authorization/Authorization';
 import Registration from './components/Registration/Registration';
 

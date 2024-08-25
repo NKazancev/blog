@@ -2,8 +2,9 @@ import { Link } from 'react-router-dom';
 
 import { IArticle } from 'models/article';
 
-import ArticleAuthor from './ArticleAuthor/ArticleAuthor';
-import ArticleDescription from './ArticleDescription/ArticleDescription';
+import ArticleAuthor from '../ArticleAuthor/ArticleAuthor';
+import ArticleDescription from '../ArticleDescription/ArticleDescription';
+
 import * as classes from './Article.module.css';
 
 export default function Article(props: IArticle) {

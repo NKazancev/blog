@@ -19,6 +19,7 @@ export default function ArticleDescription(props: IArticleDescription) {
     <div className={classes.container}>
       <div className={classes.caption}>
         {children}
+
         <button type="button" className={classes.likesBtn}>
           <img src={heartIcon} alt="heart-icon" />
           <span>{favoritesCount}</span>
@@ -26,6 +27,7 @@ export default function ArticleDescription(props: IArticleDescription) {
       </div>
 
       <ul className={classes.tagList}>{tags}</ul>
+
       <p className={classes.desc} style={{ color: descriptionColor }}>
         {description}
       </p>
