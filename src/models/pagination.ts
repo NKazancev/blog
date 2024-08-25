@@ -1,7 +1,3 @@
-export interface IPaginationList {
-  articlesNumber: number;
-  articlesPerPage: number;
-  visibleBtns: number;
+export interface IPagination {
   currentPage: number;
-  onPageChange: (current: number, offsetValue: number) => void;
 }

@@ -5,7 +5,7 @@
 }
 
 .caption {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   column-gap: 10px;
   margin-bottom: 10px;
@@ -32,15 +32,18 @@
 }
 
 .tag {
+  max-width: 200px;
   padding: 2px 5px;
   border: 1px solid hsla(0, 0%, 0%, 0.5);
   border-radius: 5px;
   color: hsla(0, 0%, 0%, 0.5);
   font-size: 12px;
+  overflow: hidden;
 }
 
 .desc {
+  max-height: 190px;
   font-size: 14px;
   word-break: break-word;
-  color: hsla(0, 0%, 0%, 0.75);
+  overflow: hidden;
 }

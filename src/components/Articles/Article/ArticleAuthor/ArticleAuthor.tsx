@@ -1,5 +1,5 @@
-import useDate from 'hooks/useDate';
 import { IArticleAuthor } from 'models/article';
+import useDate from 'hooks/useDate';
 
 import * as classes from './ArticleAuthor.module.css';
 

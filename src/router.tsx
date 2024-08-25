@@ -20,6 +20,10 @@ const router = createHashRouter([
         element: <Articles />,
       },
       {
+        path: 'articles/page/:page',
+        element: <Articles />,
+      },
+      {
         path: 'articles/:slug',
         element: <ArticlePage />,
       },

@@ -12,6 +12,7 @@ export interface IArticleAuthor {
 
 export interface IArticleDescription {
   description: string;
+  descriptionColor?: string;
   favoritesCount: number;
   tagList: Array<string>;
   children?: React.ReactNode;

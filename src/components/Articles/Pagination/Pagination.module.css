@@ -8,6 +8,37 @@
   overflow: hidden;
 }
 
+.list {
+  display: flex;
+  column-gap: 5px;
+}
+
+.item {
+  width: 30px;
+  height: 30px;
+  color: hsla(0, 0%, 0%, 0.75);
+  font-size: 12px;
+}
+
+.btn,
+.activeBtn {
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.activeBtn {
+  background-color: hsla(209, 100%, 55%, 1);
+  color: white;
+  border-radius: 5px;
+}
+
+.dots {
+  position: relative;
+  top: 8px;
+  left: 8px;
+}
+
 .arrowLeft,
 .arrowRight {
   padding: 5px;

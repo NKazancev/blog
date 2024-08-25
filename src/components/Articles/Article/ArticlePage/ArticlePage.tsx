@@ -12,8 +12,9 @@ import * as classes from './ArticlePage.module.css';
 
 export default function ArticlePage() {
   const dispatch = useAppDispatch();
-  const { slug } = useParams();
   const { articles } = useAppSelector((state) => state.articlesSlice);
+
+  const { slug } = useParams();
   const [article, setArticle] = useState<IArticle | undefined>();
 
   useEffect(() => {
@@ -31,6 +32,7 @@ export default function ArticlePage() {
         <div className={classes.header}>
           <ArticleDescription
             description={article.description}
+            descriptionColor="hsla(0, 0%, 0%, 0.5)"
             favoritesCount={article.favoritesCount}
             tagList={article.tagList}
           >

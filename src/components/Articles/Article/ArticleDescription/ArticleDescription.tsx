@@ -6,7 +6,8 @@ import heartIcon from 'assets/heart-icon.svg';
 import * as classes from './ArticleDescription.module.css';
 
 export default function ArticleDescription(props: IArticleDescription) {
-  const { description, favoritesCount, tagList, children } = props;
+  const { description, descriptionColor, favoritesCount, tagList, children } =
+    props;
 
   const tags = tagList.map((tag) => (
     <li key={nanoid()} className={classes.tag}>
@@ -25,7 +26,9 @@ export default function ArticleDescription(props: IArticleDescription) {
       </div>
 
       <ul className={classes.tagList}>{tags}</ul>
-      <p className={classes.desc}>{description}</p>
+      <p className={classes.desc} style={{ color: descriptionColor }}>
+        {description}
+      </p>
     </div>
   );
 }

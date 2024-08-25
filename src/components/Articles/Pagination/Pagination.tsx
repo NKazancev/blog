@@ -1,44 +1,59 @@
-import { useState, useEffect } from 'react';
+import { nanoid } from '@reduxjs/toolkit';
+import { useNavigate } from 'react-router-dom';
 
-import { useAppDispatch, useAppSelector } from 'store/hooks';
-import { fetchArticles } from 'store/slices/articlesSlice';
+import { IPagination } from 'models/pagination';
+import { useAppSelector } from 'store/hooks';
+import { usePagination, DOTS } from 'hooks/usePagination';
 import arrowLeft from 'assets/arrow-left.svg';
 import arrowRight from 'assets/arrow-right.svg';
 
-import PaginationList from './PaginationList';
 import * as classes from './Pagination.module.css';
 
-export default function Pagination() {
-  const dispatch = useAppDispatch();
+export default function Pagination(props: IPagination) {
+  const { currentPage } = props;
+
   const { articlesNumber } = useAppSelector((state) => state.articlesSlice);
-
-  const [offset, setOffset] = useState(0);
-  const [currentPage, setCurrentPage] = useState(1);
-
   const articlesPerPage = 5;
   const visibleBtns = 3;
 
-  useEffect(() => {
-    dispatch(fetchArticles(offset));
-    localStorage.setItem('offset', JSON.stringify(offset));
-  }, [dispatch, offset]);
+  const navigate = useNavigate();
+
+  const paginationArray = usePagination(
+    articlesNumber,
+    articlesPerPage,
+    visibleBtns,
+    currentPage
+  );
+
+  const paginationPanel = paginationArray?.map((btn) => {
+    return btn === DOTS ? (
+      <li className={classes.item} key={nanoid()}>
+        <span className={classes.dots}>{btn}</span>
+      </li>
+    ) : (
+      <li className={classes.item} key={btn}>
+        <button
+          type="button"
+          onClick={(e) =>
+            navigate(`/articles/page/${e.currentTarget.textContent}`)
+          }
+          className={currentPage === btn ? classes.activeBtn : classes.btn}
+        >
+          {btn}
+        </button>
+      </li>
+    );
+  });
 
   const prevPage = () => {
     if (currentPage === 1) return;
-    setOffset((prev) => prev - articlesPerPage);
-    setCurrentPage((prev) => prev - 1);
+    navigate(`/articles/page/${currentPage - 1}`);
   };
 
   const nextPage = () => {
     const lastPage = Math.ceil(articlesNumber / articlesPerPage);
     if (currentPage === lastPage) return;
-    setOffset((prev) => prev + articlesPerPage);
-    setCurrentPage((prev) => prev + 1);
-  };
-
-  const setPage = (current: number, offsetValue: number) => {
-    setCurrentPage(current);
-    setOffset(offsetValue);
+    navigate(`/articles/page/${currentPage + 1}`);
   };
 
   return (
@@ -48,13 +63,7 @@ export default function Pagination() {
           <img src={arrowLeft} alt="arrow-left" />
         </button>
 
-        <PaginationList
-          articlesNumber={articlesNumber}
-          articlesPerPage={articlesPerPage}
-          visibleBtns={visibleBtns}
-          currentPage={currentPage}
-          onPageChange={setPage}
-        />
+        <ul className={classes.list}>{paginationPanel}</ul>
 
         <button type="button" onClick={nextPage} className={classes.arrowRight}>
           <img src={arrowRight} alt="arrow-right" />

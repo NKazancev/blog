@@ -21,6 +21,7 @@ export default function Article(props: IArticle) {
     <li className={classes.article}>
       <ArticleDescription
         description={description}
+        descriptionColor="hsla(0, 0%, 0%, 0.75)"
         favoritesCount={favoritesCount}
         tagList={tagList}
       >
