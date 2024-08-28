@@ -39,9 +39,11 @@ export default function Articles() {
   });
 
   return (
-    <div className={classes.container}>
-      <ul className={classes.list}>{articlesList}</ul>
-      <Pagination currentPage={currentPage} />
-    </div>
+    <main>
+      <div className={classes.container}>
+        <ul className={classes.list}>{articlesList}</ul>
+        <Pagination currentPage={currentPage} />
+      </div>
+    </main>
   );
 }

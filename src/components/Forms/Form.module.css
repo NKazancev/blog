@@ -21,7 +21,6 @@
 .title {
   margin-bottom: 21px;
   text-align: center;
-  text-transform: capitalize;
   font-size: 20px;
   font-weight: 500;
 }
@@ -52,12 +51,19 @@
   border-radius: 5px;
 }
 
+.input:focus {
+  border-color: hsla(0, 0%, 70%, 1);
+}
+
 .input::placeholder {
   color: hsla(0, 0%, 75%, 1);
   font-size: 16px;
 }
 
-.checkbox {
+.checkboxLabel {
+  padding-top: 8px;
+  border-top: 1px solid hsl(0, 0%, 91%);
+
   display: flex;
   align-items: center;
   column-gap: 10px;
@@ -85,6 +91,12 @@
   font-size: 16px;
   font-weight: 400;
   cursor: pointer;
+}
+
+.warning {
+  color: hsla(357, 91%, 55%, 1);
+  font-size: 12px;
+  font-weight: 400;
 }
 
 .notice {

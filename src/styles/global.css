@@ -1,0 +1,16 @@
+body {
+  background-color: hsla(216, 26%, 94%, 1);
+  font-family: 'Inter', 'sans-serif';
+}
+
+:global .article-title {
+  max-height: 150px;
+  overflow: hidden;
+  color: hsla(209, 100%, 55%, 1);
+  font-size: 18px;
+  word-break: break-word;
+}
+
+:global .error-input {
+  border-color: hsla(357, 91%, 55%, 1);
+}

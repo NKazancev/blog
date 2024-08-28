@@ -3,8 +3,10 @@ import { createHashRouter } from 'react-router-dom';
 import App from './components/App';
 import Articles from './components/Articles/Articles';
 import ArticlePage from './components/Articles/ArticlePage/ArticlePage';
-import Authorization from './components/Authorization/Authorization';
-import Registration from './components/Registration/Registration';
+import Authentication from './components/Forms/User/Authentication';
+import Registration from './components/Forms/User/Registration';
+import EditProfile from './components/Forms/User/EditProfile';
+import HandleArticle from './components/Forms/Article/HandleArticle';
 
 const router = createHashRouter([
   {
@@ -28,12 +30,20 @@ const router = createHashRouter([
         element: <ArticlePage />,
       },
       {
+        path: 'new-article',
+        element: <HandleArticle />,
+      },
+      {
         path: 'sign-in',
-        element: <Authorization />,
+        element: <Authentication />,
       },
       {
         path: 'sign-up',
         element: <Registration />,
+      },
+      {
+        path: 'user',
+        element: <EditProfile />,
       },
     ],
   },

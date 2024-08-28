@@ -78,6 +78,14 @@ module.exports = {
         'no-use-before-define': 'off',
       },
     },
+    {
+      files: ['./src/components/Forms/**/*.tsx'],
+      rules: {
+        'consistent-return': 'off',
+        'react/jsx-props-no-spreading': 'off',
+        quotes: 'off',
+      },
+    },
   ],
   ignorePatterns: ['node_modules', 'build'],
 };

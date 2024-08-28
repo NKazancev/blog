@@ -1,0 +1,54 @@
+.header,
+.user,
+.actions {
+  display: flex;
+  align-items: center;
+}
+
+.header {
+  width: 100%;
+  min-height: 80px;
+  padding: 0 15px;
+  background-color: hsla(0, 0%, 100%, 1);
+  color: hsla(0, 0%, 0%, 0.85);
+  font-size: 18px;
+  column-gap: 15px;
+  position: absolute;
+}
+
+.logo {
+  flex-grow: 1;
+}
+
+.user {
+  column-gap: 15px;
+}
+
+.createBtn {
+  padding: 6px 10px;
+  border-radius: 5px;
+  border: 1px solid hsla(100, 77%, 44%, 1);
+  color: hsla(100, 77%, 44%, 1);
+  font-size: 15px;
+}
+
+.actions {
+  column-gap: 25px;
+}
+
+.authBtn,
+.regBtn {
+  text-transform: capitalize;
+}
+
+.regBtn {
+  padding: 10px 20px;
+  border: 1px solid hsla(100, 77%, 44%, 1);
+  border-radius: 5px;
+  color: hsla(100, 77%, 44%, 1);
+}
+
+.username {
+  color: hsla(0, 0%, 0%, 0.85);
+  font-size: 18px;
+}

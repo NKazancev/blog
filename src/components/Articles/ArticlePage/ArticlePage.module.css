@@ -15,11 +15,3 @@
   align-items: start;
   column-gap: 50px;
 }
-
-.title {
-  max-height: 150px;
-  color: hsla(209, 100%, 55%, 1);
-  font-size: 18px;
-  word-break: break-word;
-  overflow: hidden;
-}

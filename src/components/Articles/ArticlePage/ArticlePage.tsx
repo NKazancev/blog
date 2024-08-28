@@ -36,7 +36,7 @@ export default function ArticlePage() {
             favoritesCount={article.favoritesCount}
             tagList={article.tagList}
           >
-            <h3 className={classes.title}>{article.title}</h3>
+            <h3 className="article-title">{article.title}</h3>
           </ArticleDescription>
 
           <ArticleAuthor

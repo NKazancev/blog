@@ -26,7 +26,7 @@ export default function Article(props: IArticle) {
         favoritesCount={favoritesCount}
         tagList={tagList}
       >
-        <h3 className={classes.title}>
+        <h3 className="article-title">
           <Link to={`/articles/${slug}`}>{title}</Link>
         </h3>
       </ArticleDescription>

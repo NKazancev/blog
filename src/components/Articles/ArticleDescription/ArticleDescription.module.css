@@ -34,16 +34,16 @@
 .tag {
   max-width: 200px;
   padding: 2px 5px;
+  overflow: hidden;
   border: 1px solid hsla(0, 0%, 0%, 0.5);
   border-radius: 5px;
   color: hsla(0, 0%, 0%, 0.5);
   font-size: 12px;
-  overflow: hidden;
 }
 
 .desc {
   max-height: 190px;
+  overflow: hidden;
   font-size: 14px;
   word-break: break-word;
-  overflow: hidden;
 }
