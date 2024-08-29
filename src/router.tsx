@@ -6,7 +6,8 @@ import ArticlePage from './components/Articles/ArticlePage/ArticlePage';
 import Authentication from './components/Forms/User/Authentication';
 import Registration from './components/Forms/User/Registration';
 import EditProfile from './components/Forms/User/EditProfile';
-import HandleArticle from './components/Forms/Article/HandleArticle';
+import CreateArticle from './components/Forms/Article/CreateArticle';
+import EditArticlePage from './components/Articles/ArticlePage/EditArticlePage';
 
 const router = createHashRouter([
   {
@@ -30,8 +31,12 @@ const router = createHashRouter([
         element: <ArticlePage />,
       },
       {
+        path: 'articles/:slug/edit',
+        element: <EditArticlePage />,
+      },
+      {
         path: 'new-article',
-        element: <HandleArticle />,
+        element: <CreateArticle />,
       },
       {
         path: 'sign-in',

@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
+import InputBorder from '../InputBorder';
 import * as classes from '../Form.module.css';
 
 type SignupForm = {
@@ -27,6 +28,7 @@ export default function Registration() {
   const { errors } = formState;
 
   const password = watch('password');
+  const { Black, Red } = InputBorder;
 
   const onSubmit = (data: SignupForm) => {
     const user = {
@@ -38,7 +40,7 @@ export default function Registration() {
   };
 
   return (
-    <div className={classes.container} style={{ maxWidth: '384px' }}>
+    <div className={classes.container}>
       <div className={classes.body}>
         <h2 className={classes.title}>Create new account</h2>
 
@@ -54,10 +56,10 @@ export default function Registration() {
                 <input
                   type="text"
                   id="sign-up-username"
-                  className={
+                  style={
                     errors.username?.message
-                      ? classes.input + ' error-input'
-                      : classes.input
+                      ? { borderColor: Red }
+                      : { borderColor: Black }
                   }
                   placeholder="Username"
                   {...register('username', {
@@ -75,9 +77,7 @@ export default function Registration() {
                     },
                   })}
                 />
-                <strong className={classes.warning}>
-                  {errors.username?.message}
-                </strong>
+                <strong>{errors.username?.message}</strong>
               </label>
             </li>
 
@@ -87,10 +87,10 @@ export default function Registration() {
                 <input
                   type="email"
                   id="sign-up-email"
-                  className={
-                    errors.email?.message
-                      ? classes.input + ' error-input'
-                      : classes.input
+                  style={
+                    errors.username?.message
+                      ? { borderColor: Red }
+                      : { borderColor: Black }
                   }
                   placeholder="Email address"
                   {...register('email', {
@@ -104,9 +104,7 @@ export default function Registration() {
                     },
                   })}
                 />
-                <strong className={classes.warning}>
-                  {errors.email?.message}
-                </strong>
+                <strong>{errors.email?.message}</strong>
               </label>
             </li>
 
@@ -116,10 +114,10 @@ export default function Registration() {
                 <input
                   type="password"
                   id="sign-up-password"
-                  className={
-                    errors.password?.message
-                      ? classes.input + ' error-input'
-                      : classes.input
+                  style={
+                    errors.username?.message
+                      ? { borderColor: Red }
+                      : { borderColor: Black }
                   }
                   placeholder="Password"
                   {...register('password', {
@@ -137,9 +135,7 @@ export default function Registration() {
                     },
                   })}
                 />
-                <strong className={classes.warning}>
-                  {errors.password?.message}
-                </strong>
+                <strong>{errors.password?.message}</strong>
               </label>
             </li>
 
@@ -152,10 +148,10 @@ export default function Registration() {
                 <input
                   type="password"
                   id="sign-up-repeat-password"
-                  className={
-                    errors.repeatPassword?.message
-                      ? classes.input + ' error-input'
-                      : classes.input
+                  style={
+                    errors.username?.message
+                      ? { borderColor: Red }
+                      : { borderColor: Black }
                   }
                   placeholder="Password"
                   {...register('repeatPassword', {
@@ -170,9 +166,7 @@ export default function Registration() {
                     },
                   })}
                 />
-                <strong className={classes.warning}>
-                  {errors.repeatPassword?.message}
-                </strong>
+                <strong>{errors.repeatPassword?.message}</strong>
               </label>
             </li>
           </ul>
@@ -181,7 +175,6 @@ export default function Registration() {
             <input
               type="checkbox"
               id="sign-up-checkbox"
-              className={classes.checkboxInput}
               {...register('isAgreed', {
                 validate: (formField) => {
                   if (formField !== true) {
@@ -193,9 +186,7 @@ export default function Registration() {
             I agree to the processing of my personal information
           </label>
 
-          <button type="submit" className={classes.button}>
-            Login
-          </button>
+          <button type="submit">Login</button>
         </form>
 
         <div className={classes.notice}>

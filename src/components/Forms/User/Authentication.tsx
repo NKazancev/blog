@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
 import * as classes from '../Form.module.css';
+import InputBorder from '../InputBorder';
 
 type LoginForm = {
   email: string;
@@ -19,6 +20,7 @@ export default function Authentication() {
 
   const { register, handleSubmit, formState } = form;
   const { errors } = formState;
+  const { Black, Red } = InputBorder;
 
   const onSubmit = (data: LoginForm) => {
     const user = {
@@ -29,7 +31,7 @@ export default function Authentication() {
   };
 
   return (
-    <div className={classes.container} style={{ maxWidth: '384px' }}>
+    <div className={classes.container}>
       <div className={classes.body}>
         <h2 className={classes.title}>Sign In</h2>
 
@@ -45,10 +47,10 @@ export default function Authentication() {
                 <input
                   type="email"
                   id="sign-in-email"
-                  className={
+                  style={
                     errors.email?.message
-                      ? classes.input + ' error-input'
-                      : classes.input
+                      ? { borderColor: Red }
+                      : { borderColor: Black }
                   }
                   placeholder="Email address"
                   {...register('email', {
@@ -62,9 +64,7 @@ export default function Authentication() {
                     },
                   })}
                 />
-                <strong className={classes.warning}>
-                  {errors.email?.message}
-                </strong>
+                <strong>{errors.email?.message}</strong>
               </label>
             </li>
 
@@ -74,10 +74,10 @@ export default function Authentication() {
                 <input
                   type="password"
                   id="sign-in-password"
-                  className={
+                  style={
                     errors.password?.message
-                      ? classes.input + ' error-input'
-                      : classes.input
+                      ? { borderColor: Red }
+                      : { borderColor: Black }
                   }
                   placeholder="Password"
                   {...register('password', {
@@ -92,15 +92,11 @@ export default function Authentication() {
                   })}
                 />
               </label>
-              <strong className={classes.warning}>
-                {errors.password?.message}
-              </strong>
+              <strong>{errors.password?.message}</strong>
             </li>
           </ul>
 
-          <button type="submit" className={classes.button}>
-            Login
-          </button>
+          <button type="submit">Login</button>
         </form>
 
         <div className={classes.notice}>

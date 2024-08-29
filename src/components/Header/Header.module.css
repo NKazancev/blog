@@ -1,10 +1,3 @@
-.header,
-.user,
-.actions {
-  display: flex;
-  align-items: center;
-}
-
 .header {
   width: 100%;
   min-height: 80px;
@@ -12,6 +5,9 @@
   background-color: hsla(0, 0%, 100%, 1);
   color: hsla(0, 0%, 0%, 0.85);
   font-size: 18px;
+
+  display: flex;
+  align-items: center;
   column-gap: 15px;
   position: absolute;
 }
@@ -20,35 +16,39 @@
   flex-grow: 1;
 }
 
-.user {
+.userPanel {
+  display: flex;
+  align-items: center;
   column-gap: 15px;
 }
 
-.createBtn {
-  padding: 6px 10px;
-  border-radius: 5px;
-  border: 1px solid hsla(100, 77%, 44%, 1);
-  color: hsla(100, 77%, 44%, 1);
-  font-size: 15px;
-}
-
-.actions {
+.actionsPanel {
+  display: flex;
+  align-items: center;
   column-gap: 25px;
-}
-
-.authBtn,
-.regBtn {
-  text-transform: capitalize;
-}
-
-.regBtn {
-  padding: 10px 20px;
-  border: 1px solid hsla(100, 77%, 44%, 1);
-  border-radius: 5px;
-  color: hsla(100, 77%, 44%, 1);
 }
 
 .username {
   color: hsla(0, 0%, 0%, 0.85);
   font-size: 18px;
+}
+
+.createBtn,
+.regBtn,
+.logoutBtn {
+  padding: 10px 20px;
+  border: 1px solid hsla(100, 77%, 44%, 1);
+  color: hsla(100, 77%, 44%, 1);
+  border-radius: 5px;
+}
+
+.createBtn {
+  padding: 7px 10px;
+  font-size: 14px;
+}
+
+.logoutBtn {
+  border: 1px solid hsla(0, 0%, 0%, 0.75);
+  color: hsla(0, 0%, 0%, 0.75);
+  cursor: pointer;
 }

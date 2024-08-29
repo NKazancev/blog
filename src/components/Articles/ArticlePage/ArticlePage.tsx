@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 import { IArticle } from 'models/article';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
@@ -43,6 +43,15 @@ export default function ArticlePage() {
             author={article.author}
             createdAt={article.createdAt}
           />
+
+          <div className={classes.buttons}>
+            <button type="button" className={classes.button}>
+              Delete
+            </button>
+            <Link to="edit" className={classes.link}>
+              Edit
+            </Link>
+          </div>
         </div>
       </div>
     )

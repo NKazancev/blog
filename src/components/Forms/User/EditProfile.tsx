@@ -1,6 +1,7 @@
 import { useForm } from 'react-hook-form';
 
 import * as classes from '../Form.module.css';
+import InputBorder from '../InputBorder';
 
 type EditProfileForm = {
   username: string;
@@ -22,6 +23,7 @@ export default function EditProfile() {
 
   const { register, handleSubmit, formState } = form;
   const { errors } = formState;
+  const { Black, Red } = InputBorder;
 
   const onSubmit = (data: EditProfileForm) => {
     const user = {
@@ -34,7 +36,7 @@ export default function EditProfile() {
   };
 
   return (
-    <div className={classes.container} style={{ maxWidth: '384px' }}>
+    <div className={classes.container}>
       <div className={classes.body}>
         <h2 className={classes.title}>Edit Profile</h2>
 
@@ -46,10 +48,10 @@ export default function EditProfile() {
                 <input
                   type="text"
                   id="edit-profile-username"
-                  className={
+                  style={
                     errors.username?.message
-                      ? classes.input + ' error-input'
-                      : classes.input
+                      ? { borderColor: Red }
+                      : { borderColor: Black }
                   }
                   placeholder="Username"
                   {...register('username', {
@@ -68,9 +70,7 @@ export default function EditProfile() {
                   })}
                 />
               </label>
-              <strong className={classes.warning}>
-                {errors.username?.message}
-              </strong>
+              <strong>{errors.username?.message}</strong>
             </li>
 
             <li>
@@ -79,10 +79,10 @@ export default function EditProfile() {
                 <input
                   type="email"
                   id="edit-profile-email"
-                  className={
+                  style={
                     errors.email?.message
-                      ? classes.input + ' error-input'
-                      : classes.input
+                      ? { borderColor: Red }
+                      : { borderColor: Black }
                   }
                   placeholder="Email address"
                   {...register('email', {
@@ -97,9 +97,7 @@ export default function EditProfile() {
                   })}
                 />
               </label>
-              <strong className={classes.warning}>
-                {errors.email?.message}
-              </strong>
+              <strong>{errors.email?.message}</strong>
             </li>
 
             <li>
@@ -108,10 +106,10 @@ export default function EditProfile() {
                 <input
                   type="password"
                   id="edit-profile-password"
-                  className={
+                  style={
                     errors.password?.message
-                      ? classes.input + ' error-input'
-                      : classes.input
+                      ? { borderColor: Red }
+                      : { borderColor: Black }
                   }
                   placeholder="Password"
                   {...register('password', {
@@ -130,9 +128,7 @@ export default function EditProfile() {
                   })}
                 />
               </label>
-              <strong className={classes.warning}>
-                {errors.password?.message}
-              </strong>
+              <strong>{errors.password?.message}</strong>
             </li>
 
             <li>
@@ -141,10 +137,10 @@ export default function EditProfile() {
                 <input
                   type="text"
                   id="edit-profile-avatar"
-                  className={
+                  style={
                     errors.avatar?.message
-                      ? classes.input + ' error-input'
-                      : classes.input
+                      ? { borderColor: Red }
+                      : { borderColor: Black }
                   }
                   placeholder="Avatar image"
                   {...register('avatar', {
@@ -155,15 +151,11 @@ export default function EditProfile() {
                   })}
                 />
               </label>
-              <strong className={classes.warning}>
-                {errors.avatar?.message}
-              </strong>
+              <strong>{errors.avatar?.message}</strong>
             </li>
           </ul>
 
-          <button type="submit" className={classes.button}>
-            Save
-          </button>
+          <button type="submit">Save</button>
         </form>
       </div>
     </div>

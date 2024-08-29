@@ -3,14 +3,50 @@ body {
   font-family: 'Inter', 'sans-serif';
 }
 
+input[type='text'],
+input[type='email'],
+input[type='password'],
+textarea {
+  padding: 11px 12px 9px 12px;
+  border: 1px solid hsla(0, 0%, 85%, 1);
+  border-radius: 5px;
+}
+
+input::placeholder {
+  color: hsla(0, 0%, 75%, 1);
+  font-size: 16px;
+}
+
+input:focus {
+  border-color: hsla(0, 0%, 70%, 1) !important;
+}
+
+textarea {
+  resize: none;
+}
+
+:where(form) strong {
+  color: hsla(357, 91%, 55%, 1);
+  font-size: 12px;
+  font-weight: 400;
+}
+
+:where(form) button[type='submit'] {
+  width: 100%;
+  padding: 10px 0;
+  background-color: hsla(209, 100%, 55%, 1);
+  border-radius: 5px;
+
+  color: hsl(0, 0%, 100%);
+  font-size: 16px;
+  font-weight: 400;
+  cursor: pointer;
+}
+
 :global .article-title {
   max-height: 150px;
   overflow: hidden;
   color: hsla(209, 100%, 55%, 1);
   font-size: 18px;
   word-break: break-word;
-}
-
-:global .error-input {
-  border-color: hsla(357, 91%, 55%, 1);
 }

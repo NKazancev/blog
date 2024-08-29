@@ -1,4 +1,5 @@
 .container {
+  max-width: 384px;
   margin: 0 auto;
   padding-top: 140px;
 }
@@ -45,58 +46,17 @@
   font-weight: 400;
 }
 
-.input {
-  padding: 11px 12px 9px 12px;
-  border: 1px solid hsla(0, 0%, 85%, 1);
-  border-radius: 5px;
-}
-
-.input:focus {
-  border-color: hsla(0, 0%, 70%, 1);
-}
-
-.input::placeholder {
-  color: hsla(0, 0%, 75%, 1);
-  font-size: 16px;
-}
-
 .checkboxLabel {
   padding-top: 8px;
   border-top: 1px solid hsl(0, 0%, 91%);
+  color: hsla(0, 0%, 35%, 1);
+  font-size: 13px;
 
   display: flex;
   align-items: center;
   column-gap: 10px;
 
-  color: hsla(0, 0%, 35%, 1);
-  font-size: 13px;
-  font-weight: 400;
-
   cursor: pointer;
-}
-
-.checkboxInput {
-  position: relative;
-  top: -2px;
-  cursor: pointer;
-}
-
-.button {
-  width: 100%;
-  padding: 10px 0;
-  background-color: hsla(209, 100%, 55%, 1);
-  border-radius: 5px;
-
-  color: hsl(0, 0%, 100%);
-  font-size: 16px;
-  font-weight: 400;
-  cursor: pointer;
-}
-
-.warning {
-  color: hsla(357, 91%, 55%, 1);
-  font-size: 12px;
-  font-weight: 400;
 }
 
 .notice {

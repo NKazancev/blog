@@ -11,7 +11,7 @@ export default function Header() {
         <Link to="/articles">Realworld Blog</Link>
       </div>
 
-      <div className={classes.user}>
+      <div className={classes.userPanel}>
         <Link to="new-article" className={classes.createBtn}>
           Create article
         </Link>
@@ -19,14 +19,15 @@ export default function Header() {
         <Link to="user">
           <img src={avatar} alt="avatar" />
         </Link>
+        <button type="button" className={classes.logoutBtn}>
+          Log Out
+        </button>
       </div>
 
-      <div className={classes.actions}>
-        <Link to="sign-in" className={classes.authBtn}>
-          sign in
-        </Link>
+      <div className={classes.actionsPanel}>
+        <Link to="sign-in">Sign In</Link>
         <Link to="sign-up" className={classes.regBtn}>
-          sign up
+          Sign Up
         </Link>
       </div>
     </header>
