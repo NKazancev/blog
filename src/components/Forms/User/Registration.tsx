@@ -1,5 +1,9 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import { useEffect } from 'react';
+
+import { useAppDispatch, useAppSelector } from 'store/hooks';
+import fetchUserRegistration from 'store/thunks/fetchUserRegistration';
 
 import InputBorder from '../InputBorder';
 import * as classes from '../Form.module.css';
@@ -13,7 +17,7 @@ type SignupForm = {
 };
 
 export default function Registration() {
-  const form = useForm<SignupForm>({
+  const { register, handleSubmit, watch, formState } = useForm<SignupForm>({
     defaultValues: {
       username: '',
       email: '',
@@ -24,11 +28,13 @@ export default function Registration() {
     shouldFocusError: false,
   });
 
-  const { register, handleSubmit, watch, formState } = form;
   const { errors } = formState;
-
   const password = watch('password');
-  const { Black, Red } = InputBorder;
+
+  const { errorMessage } = useAppSelector((state) => state.userSlice);
+  const { isLogged } = useAppSelector((state) => state.userSlice);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const onSubmit = (data: SignupForm) => {
     const user = {
@@ -36,8 +42,16 @@ export default function Registration() {
       email: data.email,
       password: data.password,
     };
-    return user;
+    dispatch(fetchUserRegistration(user));
   };
+
+  useEffect(() => {
+    if (isLogged) {
+      navigate('/articles');
+    }
+  }, [navigate, isLogged]);
+
+  const { Black, Red } = InputBorder;
 
   return (
     <div className={classes.container}>
@@ -88,7 +102,7 @@ export default function Registration() {
                   type="email"
                   id="sign-up-email"
                   style={
-                    errors.username?.message
+                    errors.email?.message
                       ? { borderColor: Red }
                       : { borderColor: Black }
                   }
@@ -115,7 +129,7 @@ export default function Registration() {
                   type="password"
                   id="sign-up-password"
                   style={
-                    errors.username?.message
+                    errors.password?.message
                       ? { borderColor: Red }
                       : { borderColor: Black }
                   }
@@ -149,7 +163,7 @@ export default function Registration() {
                   type="password"
                   id="sign-up-repeat-password"
                   style={
-                    errors.username?.message
+                    errors.repeatPassword?.message
                       ? { borderColor: Red }
                       : { borderColor: Black }
                   }
@@ -186,7 +200,8 @@ export default function Registration() {
             I agree to the processing of my personal information
           </label>
 
-          <button type="submit">Login</button>
+          {errorMessage !== '' && <strong>{errorMessage}</strong>}
+          <button type="submit">Create</button>
         </form>
 
         <div className={classes.notice}>

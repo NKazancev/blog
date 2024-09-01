@@ -1,8 +1,12 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import { useEffect } from 'react';
 
-import * as classes from '../Form.module.css';
+import { useAppDispatch, useAppSelector } from 'store/hooks';
+import fetchUserAuthentication from 'store/thunks/fetchUserAuthentication';
+
 import InputBorder from '../InputBorder';
+import * as classes from '../Form.module.css';
 
 type LoginForm = {
   email: string;
@@ -10,7 +14,7 @@ type LoginForm = {
 };
 
 export default function Authentication() {
-  const form = useForm<LoginForm>({
+  const { register, handleSubmit, formState } = useForm<LoginForm>({
     defaultValues: {
       email: '',
       password: '',
@@ -18,17 +22,23 @@ export default function Authentication() {
     shouldFocusError: false,
   });
 
-  const { register, handleSubmit, formState } = form;
   const { errors } = formState;
-  const { Black, Red } = InputBorder;
+
+  const { errorMessage, isLogged } = useAppSelector((state) => state.userSlice);
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const onSubmit = (data: LoginForm) => {
-    const user = {
-      email: data.email,
-      password: data.password,
-    };
-    return user;
+    dispatch(fetchUserAuthentication(data));
   };
+
+  useEffect(() => {
+    if (isLogged) {
+      navigate('/articles');
+    }
+  }, [navigate, isLogged]);
+
+  const { Black, Red } = InputBorder;
 
   return (
     <div className={classes.container}>
@@ -96,6 +106,7 @@ export default function Authentication() {
             </li>
           </ul>
 
+          {errorMessage !== '' && <strong>{errorMessage}</strong>}
           <button type="submit">Login</button>
         </form>
 

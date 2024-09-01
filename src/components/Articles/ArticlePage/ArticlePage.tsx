@@ -1,38 +1,43 @@
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import Markdown from 'react-markdown';
 
-import { IArticle } from 'models/article';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
-import { fetchArticles } from 'store/slices/articlesSlice';
+import { removeArticle } from 'store/slices/articlesSlice';
+import fetchArticlePage from 'store/thunks/fetchArticlePage';
+import fetchArticlePageAuth from 'store/thunks/fetchArticlePageAuth';
 
 import ArticleDescription from '../ArticleDescription/ArticleDescription';
 import ArticleAuthor from '../ArticleAuthor/ArticleAuthor';
 
 import * as classes from './ArticlePage.module.css';
+import Confirmation from './Confirmation/Confirmation';
 
 export default function ArticlePage() {
-  const dispatch = useAppDispatch();
-  const { articles } = useAppSelector((state) => state.articlesSlice);
-
+  const { token, username } = JSON.parse(localStorage.getItem('user') || '{}');
+  const { article } = useAppSelector((state) => state.articlesSlice);
   const { slug } = useParams();
-  const [article, setArticle] = useState<IArticle | undefined>();
+  const dispatch = useAppDispatch();
+
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   useEffect(() => {
-    const offset = Number(localStorage.getItem('offset'));
-    if (!articles.length) {
-      dispatch(fetchArticles(offset));
+    dispatch(removeArticle());
+    if (slug) {
+      if (!token) dispatch(fetchArticlePage(slug));
+      if (token) dispatch(fetchArticlePageAuth({ token, slug }));
     }
-    const pickedArticle = articles.find((item: IArticle) => item.slug === slug);
-    setArticle(pickedArticle);
-  }, [dispatch, articles, slug]);
+  }, [dispatch, token, slug]);
 
   return (
     article && (
       <div className={classes.container}>
         <div className={classes.header}>
           <ArticleDescription
+            slug={slug}
             description={article.description}
             descriptionColor="hsla(0, 0%, 0%, 0.5)"
+            favorited={article.favorited}
             favoritesCount={article.favoritesCount}
             tagList={article.tagList}
           >
@@ -44,14 +49,30 @@ export default function ArticlePage() {
             createdAt={article.createdAt}
           />
 
-          <div className={classes.buttons}>
-            <button type="button" className={classes.button}>
-              Delete
-            </button>
-            <Link to="edit" className={classes.link}>
-              Edit
-            </Link>
-          </div>
+          {article.author.username === username && (
+            <div className={classes.buttons}>
+              <button
+                type="button"
+                onClick={() => setIsModalVisible(true)}
+                className={classes.button}
+              >
+                Delete
+              </button>
+              {isModalVisible && (
+                <Confirmation
+                  slug={slug}
+                  onClose={() => setIsModalVisible(false)}
+                />
+              )}
+              <Link to="edit" className={classes.link}>
+                Edit
+              </Link>
+            </div>
+          )}
+        </div>
+
+        <div className={classes.body}>
+          <Markdown>{article.body}</Markdown>
         </div>
       </div>
     )

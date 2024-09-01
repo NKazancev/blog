@@ -1,17 +1,25 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
 import { IArticle } from 'models/article';
 
 interface IArticlesState {
-  articles: Array<IArticle>;
+  articles: Array<IArticle> | null;
   articlesNumber: number;
-  loadingStatus: 'idle' | 'pending' | 'succeeded' | 'failed';
+  article: IArticle | null;
+  isCreated: boolean;
+  isDeleted: boolean;
+  isUpdated: boolean;
+  errorMessage: string;
 }
 
 const initialState: IArticlesState = {
   articles: [],
   articlesNumber: 0,
-  loadingStatus: 'idle',
+  article: null,
+  isCreated: false,
+  isDeleted: false,
+  isUpdated: false,
+  errorMessage: '',
 };
 
 const articlesSlice = createSlice({
@@ -24,38 +32,47 @@ const articlesSlice = createSlice({
     setArticlesNumber(state, action) {
       state.articlesNumber = action.payload;
     },
-  },
-  extraReducers: (builder) => {
-    builder
-      .addCase(fetchArticles.pending, (state) => {
-        state.loadingStatus = 'pending';
-      })
-      .addCase(fetchArticles.fulfilled, (state) => {
-        state.loadingStatus = 'succeeded';
-      })
-      .addCase(fetchArticles.rejected, (state) => {
-        state.loadingStatus = 'failed';
-      });
+    setOneArticle(state, action) {
+      state.article = action.payload;
+    },
+    createArticle(state, action) {
+      if (state.articles) state.articles.push(action.payload);
+      state.isCreated = true;
+    },
+    updateArticle(state, action) {
+      if (state.articles) state.articles.push(action.payload);
+      state.isUpdated = true;
+    },
+    deleteArticle(state) {
+      state.isDeleted = true;
+    },
+    removeArticle(state) {
+      state.article = null;
+    },
+    removeArticles(state) {
+      state.articles = null;
+    },
+    setErrorMesage(state, action) {
+      state.errorMessage = action.payload;
+    },
+    resetStatus(state) {
+      state.isCreated = false;
+      state.isDeleted = false;
+      state.isUpdated = false;
+    },
   },
 });
 
-export const fetchArticles = createAsyncThunk(
-  'articles/fetchArticles',
-  async (offset: number, { dispatch, rejectWithValue }) => {
-    const url = `https://blog.kata.academy/api/articles?limit=5&offset=${offset}`;
-
-    try {
-      const response = await fetch(url);
-      const data = await response.json();
-      dispatch(addArticles(data.articles));
-      dispatch(setArticlesNumber(data.articlesCount));
-    } catch (error) {
-      if (error instanceof Error) {
-        rejectWithValue(error.message);
-      }
-    }
-  }
-);
-
 export default articlesSlice.reducer;
-export const { addArticles, setArticlesNumber } = articlesSlice.actions;
+export const {
+  addArticles,
+  setArticlesNumber,
+  setOneArticle,
+  createArticle,
+  updateArticle,
+  deleteArticle,
+  removeArticle,
+  removeArticles,
+  setErrorMesage,
+  resetStatus,
+} = articlesSlice.actions;

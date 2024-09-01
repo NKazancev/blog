@@ -12,6 +12,7 @@ export default function Article(props: IArticle) {
     slug,
     title,
     description,
+    favorited,
     favoritesCount,
     tagList,
     author,
@@ -21,8 +22,10 @@ export default function Article(props: IArticle) {
   return (
     <li className={classes.article}>
       <ArticleDescription
+        slug={slug}
         description={description}
         descriptionColor="hsla(0, 0%, 0%, 0.75)"
+        favorited={favorited}
         favoritesCount={favoritesCount}
         tagList={tagList}
       >

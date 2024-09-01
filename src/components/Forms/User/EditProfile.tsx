@@ -1,5 +1,8 @@
 import { useForm } from 'react-hook-form';
 
+import { useAppDispatch } from 'store/hooks';
+import fetchUserUpdate from 'store/thunks/fetchUserUpdate';
+
 import * as classes from '../Form.module.css';
 import InputBorder from '../InputBorder';
 
@@ -11,7 +14,7 @@ type EditProfileForm = {
 };
 
 export default function EditProfile() {
-  const form = useForm<EditProfileForm>({
+  const { register, handleSubmit, formState } = useForm<EditProfileForm>({
     defaultValues: {
       username: '',
       email: '',
@@ -21,19 +24,22 @@ export default function EditProfile() {
     shouldFocusError: false,
   });
 
-  const { register, handleSubmit, formState } = form;
   const { errors } = formState;
-  const { Black, Red } = InputBorder;
+
+  const { token } = JSON.parse(localStorage.getItem('user') || '{}');
+  const dispatch = useAppDispatch();
 
   const onSubmit = (data: EditProfileForm) => {
     const user = {
       username: data.username,
       email: data.email,
       password: data.password,
-      avatar: data.avatar,
+      image: data.avatar,
     };
-    return user;
+    dispatch(fetchUserUpdate({ token, userData: user }));
   };
+
+  const { Black, Red } = InputBorder;
 
   return (
     <div className={classes.container}>

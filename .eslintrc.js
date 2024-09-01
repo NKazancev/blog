@@ -66,6 +66,7 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     'react/prop-types': 'off',
     'react/no-unused-prop-types': 'off',
+    'react/require-default-props': 'off',
     'lines-between-class-members': 'off',
     'default-param-last': 'off',
     'prefer-template': 'off',

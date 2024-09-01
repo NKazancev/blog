@@ -1,7 +1,14 @@
 import { useFieldArray, useForm } from 'react-hook-form';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-import InputBorder from '../InputBorder';
+import { useAppDispatch, useAppSelector } from 'store/hooks';
+import { IArticle } from 'models/article';
+import fetchArticleCreation from 'store/thunks/fetchArticleCreation';
+import fetchArticleUpdate from 'store/thunks/fetchArticleUpdate';
+
 import * as classes from '../Form.module.css';
+import InputBorder from '../InputBorder';
 
 import * as _classes from './CreateArticle.module.css';
 
@@ -12,38 +19,73 @@ type CreateArticleForm = {
   tags: Array<{ tag: string }>;
 };
 
-export default function CreateArticle({ isEditing = false }) {
-  const form = useForm<CreateArticleForm>({
-    defaultValues: {
-      title: '',
-      description: '',
-      text: '',
-      tags: [{ tag: '' }],
-    },
-    shouldFocusError: false,
-  });
+type PropsForm = {
+  isEditing?: boolean;
+  slug?: string | undefined;
+  article?: IArticle | null;
+};
 
-  const { register, handleSubmit, control, formState } = form;
+export default function CreateArticle(props: PropsForm) {
+  const { isEditing = false, slug, article } = props;
+
+  const { register, handleSubmit, control, formState } =
+    useForm<CreateArticleForm>({
+      defaultValues: {
+        title: article?.title || '',
+        description: article?.description || '',
+        text: article?.body || '',
+        tags: [{ tag: '' }],
+      },
+      shouldFocusError: false,
+    });
+
   const { errors } = formState;
-  const { Black, Red } = InputBorder;
-
   const { fields, append, remove } = useFieldArray({
     name: 'tags',
     control,
   });
 
+  const { token } = JSON.parse(localStorage.getItem('user') || '{}');
+  const dispatch = useAppDispatch();
+
   const onSubmit = (data: CreateArticleForm) => {
-    const article = {
-      title: data.title,
-      description: data.description,
-      body: data.text,
-      tags: data.tags.reduce((acc: Array<string>, el: { tag: string }) => {
+    const tagList = data.tags.reduce(
+      (acc: Array<string>, el: { tag: string }) => {
         acc.push(el.tag);
         return acc;
-      }, []),
-    };
-    return article;
+      },
+      []
+    );
+    if (!isEditing) {
+      const createdArticle = {
+        title: data.title,
+        description: data.description,
+        body: data.text,
+        tagList,
+      };
+      dispatch(fetchArticleCreation({ token, articleData: createdArticle }));
+    } else {
+      const editedArticle = {
+        title: data.title,
+        description: data.description,
+        body: data.text,
+      };
+      dispatch(fetchArticleUpdate({ token, slug, articleData: editedArticle }));
+    }
   };
+
+  const { isCreated, isUpdated } = useAppSelector(
+    (state) => state.articlesSlice
+  );
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isCreated || isUpdated) {
+      navigate('/articles');
+    }
+  }, [navigate, isCreated, isUpdated]);
+
+  const { Black, Red } = InputBorder;
 
   return (
     <div className={_classes.container}>
@@ -82,7 +124,13 @@ export default function CreateArticle({ isEditing = false }) {
           <p>
             <label htmlFor="handle-article-desc" className={classes.label}>
               Short description
-              <input type="text" id="handle-article-desc" />
+              <input
+                type="text"
+                id="handle-article-desc"
+                {...register('description', {
+                  required: false,
+                })}
+              />
             </label>
           </p>
 
@@ -92,6 +140,9 @@ export default function CreateArticle({ isEditing = false }) {
               <textarea
                 id="handle-article-text"
                 style={{ minHeight: '168px' }}
+                {...register('text', {
+                  required: false,
+                })}
               />
             </label>
           </p>
@@ -121,7 +172,6 @@ export default function CreateArticle({ isEditing = false }) {
                   );
                 })}
               </ul>
-
               <button
                 type="button"
                 onClick={() => append({ tag: '' })}

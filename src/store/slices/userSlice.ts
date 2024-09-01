@@ -1,18 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import IUser from 'models/user';
-
 interface IUserState {
-  user: IUser | null;
-  token: string;
-  loadingStatus: 'idle' | 'pending' | 'succeeded' | 'failed';
+  isLogged: boolean;
   errorMessage: string;
 }
 
 const initialState: IUserState = {
-  user: null,
-  token: '',
-  loadingStatus: 'idle',
+  isLogged: false,
   errorMessage: '',
 };
 
@@ -20,14 +14,17 @@ const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    setUser(state, action) {
-      state.user = action.payload;
+    setUser(state) {
+      state.isLogged = true;
     },
-    setToken(state, action) {
-      state.token = action.payload;
+    removeUser(state) {
+      state.isLogged = false;
+    },
+    setMessage(state, action) {
+      state.errorMessage = action.payload;
     },
   },
 });
 
 export default userSlice.reducer;
-export const { setUser, setToken } = userSlice.actions;
+export const { setUser, removeUser, setMessage } = userSlice.actions;

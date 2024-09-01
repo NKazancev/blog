@@ -8,11 +8,13 @@ import Registration from './components/Forms/User/Registration';
 import EditProfile from './components/Forms/User/EditProfile';
 import CreateArticle from './components/Forms/Article/CreateArticle';
 import EditArticlePage from './components/Articles/ArticlePage/EditArticlePage';
+import RouteError from './components/RouteError/RouteError';
 
 const router = createHashRouter([
   {
     path: '/',
     element: <App />,
+    errorElement: <RouteError />,
     children: [
       {
         index: true,
