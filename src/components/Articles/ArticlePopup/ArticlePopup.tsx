@@ -6,9 +6,9 @@ import mark from 'assets/exclamation.png';
 import IConfirmationModal from 'models/modal';
 import fetchArticleDeletion from 'store/thunks/fetchArticleDeletion';
 
-import * as classes from './Confirmation.module.css';
+import * as classes from './ArticlePopup.module.css';
 
-export default function Confirmation(props: IConfirmationModal) {
+export default function ArticlePopup(props: IConfirmationModal) {
   const { token } = JSON.parse(localStorage.getItem('user') || '{}');
   const { slug, onClose } = props;
   const { isDeleted } = useAppSelector((state) => state.articlesSlice);

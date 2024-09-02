@@ -7,6 +7,9 @@ import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { removeArticles, resetStatus } from 'store/slices/articlesSlice';
 import fetchArticles from 'store/thunks/fetchArticles';
 import fetchArticlesAuth from 'store/thunks/fetchArticlesAuth';
+import { resetUserStatus } from 'store/slices/userSlice';
+
+import Loader from '../Loader/Loader';
 
 import Article from './Article/Article';
 import Pagination from './Pagination/Pagination';
@@ -31,6 +34,7 @@ export default function Articles() {
 
   useEffect(() => {
     dispatch(resetStatus());
+    dispatch(resetUserStatus());
   }, [dispatch]);
 
   let articlesList;
@@ -41,9 +45,10 @@ export default function Articles() {
           key={nanoid()}
           slug={article.slug}
           title={article.title}
+          description={article.description}
+          body={article.body}
           favorited={article.favorited}
           favoritesCount={article.favoritesCount}
-          description={article.description}
           tagList={article.tagList}
           author={article.author}
           createdAt={article.createdAt}
@@ -54,12 +59,16 @@ export default function Articles() {
 
   return (
     <main>
-      <div className={classes.container}>
-        <ul className={classes.list}>{articlesList}</ul>
-        <Pagination currentPage={currentPage} />
-      </div>
+      {!articles?.length && <Loader />}
 
-      {errorMessage !== '' && (
+      {articles?.length && (
+        <div className={classes.container}>
+          <ul className={classes.list}>{articlesList}</ul>
+          <Pagination currentPage={currentPage} />
+        </div>
+      )}
+
+      {errorMessage !== '' && !articles?.length && (
         <div className={classes.error}>{errorMessage}</div>
       )}
     </main>

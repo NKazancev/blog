@@ -10,6 +10,9 @@ textarea {
   padding: 11px 12px 9px 12px;
   border: 1px solid hsla(0, 0%, 85%, 1);
   border-radius: 5px;
+
+  font-family: inherit;
+  color: hsla(0, 0%, 0%, 0.75);
 }
 
 input::placeholder {
@@ -17,7 +20,8 @@ input::placeholder {
   font-size: 16px;
 }
 
-input:focus {
+input:focus,
+textarea:focus {
   border-color: hsla(0, 0%, 70%, 1) !important;
 }
 

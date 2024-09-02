@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { setMessage, setUser } from '../slices/userSlice';
+import { setErrorMessage, setUser } from '../slices/userSlice';
 
 type RegistrationUserData = {
   username: string;
@@ -29,10 +29,11 @@ const fetchUserRegistration = createAsyncThunk(
       if (response.status === 422) {
         const errorData = await response.json();
         const error = await errorData.errors;
-        if (error.username) dispatch(setMessage('Username is already taken'));
-        if (error.email) dispatch(setMessage('Email is already taken'));
+        if (error.username)
+          dispatch(setErrorMessage('Such username already exist'));
+        if (error.email) dispatch(setErrorMessage('Such email already exist'));
         if (error.email && error.username)
-          dispatch(setMessage('Username and email are already taken'));
+          dispatch(setErrorMessage('Such username and email already exist'));
       }
     } catch (error) {
       if (error instanceof Error) {

@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 
 import { useAppDispatch, useAppSelector } from 'store/hooks';
@@ -12,6 +12,7 @@ export default function Header() {
   const { token, username } = JSON.parse(localStorage.getItem('user') || '{}');
   const { isLogged } = useAppSelector((state) => state.userSlice);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (token) dispatch(fetchCurrentUser(token));
@@ -20,6 +21,7 @@ export default function Header() {
   const onLogout = () => {
     dispatch(removeUser());
     localStorage.clear();
+    navigate('/');
   };
 
   return (

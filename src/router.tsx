@@ -3,12 +3,13 @@ import { createHashRouter } from 'react-router-dom';
 import App from './components/App';
 import Articles from './components/Articles/Articles';
 import ArticlePage from './components/Articles/ArticlePage/ArticlePage';
-import Authentication from './components/Forms/User/Authentication';
-import Registration from './components/Forms/User/Registration';
-import EditProfile from './components/Forms/User/EditProfile';
-import CreateArticle from './components/Forms/Article/CreateArticle';
-import EditArticlePage from './components/Articles/ArticlePage/EditArticlePage';
+import CreateArticle from './components/Forms/CreateArticle';
+import ArticlePageUpdate from './components/Articles/ArticlePageUpdate/ArticlePageUpdate';
+import UserAuthentication from './components/Forms/UserAuthentication';
+import UserRegistration from './components/Forms/UserRegistration';
+import UserUpdate from './components/Forms/UserUpdate';
 import RouteError from './components/RouteError/RouteError';
+import RequireAuth from './utils/RequireAuth';
 
 const router = createHashRouter([
   {
@@ -34,23 +35,27 @@ const router = createHashRouter([
       },
       {
         path: 'articles/:slug/edit',
-        element: <EditArticlePage />,
+        element: <ArticlePageUpdate />,
       },
       {
         path: 'new-article',
-        element: <CreateArticle />,
+        element: (
+          <RequireAuth>
+            <CreateArticle />
+          </RequireAuth>
+        ),
       },
       {
         path: 'sign-in',
-        element: <Authentication />,
+        element: <UserAuthentication />,
       },
       {
         path: 'sign-up',
-        element: <Registration />,
+        element: <UserRegistration />,
       },
       {
         path: 'user',
-        element: <EditProfile />,
+        element: <UserUpdate />,
       },
     ],
   },

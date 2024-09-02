@@ -1,0 +1,26 @@
+.buttons {
+  grid-column-start: 2;
+  display: flex;
+  align-items: center;
+  column-gap: 12px;
+  position: relative;
+}
+
+.button,
+.link {
+  padding: 6px 17px;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.button {
+  border: 1px solid hsla(357, 91%, 55%, 1);
+  color: hsla(357, 91%, 55%, 1);
+  cursor: pointer;
+}
+
+.link {
+  border: 1px solid hsla(100, 77%, 44%, 1);
+  color: hsla(100, 77%, 44%, 1);
+}

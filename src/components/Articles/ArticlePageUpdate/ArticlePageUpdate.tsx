@@ -4,9 +4,9 @@ import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import fetchArticlePage from 'store/thunks/fetchArticlePage';
 
-import CreateArticle from '../../Forms/Article/CreateArticle';
+import CreateArticle from '../../Forms/CreateArticle';
 
-export default function EditArticlePage() {
+export default function ArticlePageUpdate() {
   const { slug } = useParams();
   const { article } = useAppSelector((state) => state.articlesSlice);
   const dispatch = useAppDispatch();

@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { setMessage, setUser } from '../slices/userSlice';
+import { setErrorMessage, setUser } from '../slices/userSlice';
 
 type AuthenticationUserData = {
   email: string;
@@ -25,7 +25,7 @@ const fetchUserAuthentication = createAsyncThunk(
         localStorage.setItem('user', JSON.stringify(user.user));
       }
       if (response.status === 422) {
-        dispatch(setMessage('Email or password is invalid'));
+        dispatch(setErrorMessage('Email or password is incorrect'));
       }
     } catch (error) {
       if (error instanceof Error) {

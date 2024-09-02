@@ -4,9 +4,10 @@ import { useEffect } from 'react';
 
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import fetchUserRegistration from 'store/thunks/fetchUserRegistration';
+import { clearUserMessage } from 'store/slices/userSlice';
 
-import InputBorder from '../InputBorder';
-import * as classes from '../Form.module.css';
+import InputBorder from './styles/InputBorder';
+import * as classes from './styles/Form.module.css';
 
 type SignupForm = {
   username: string;
@@ -16,7 +17,7 @@ type SignupForm = {
   isAgreed: boolean;
 };
 
-export default function Registration() {
+export default function UserRegistration() {
   const { register, handleSubmit, watch, formState } = useForm<SignupForm>({
     defaultValues: {
       username: '',
@@ -31,8 +32,8 @@ export default function Registration() {
   const { errors } = formState;
   const password = watch('password');
 
-  const { errorMessage } = useAppSelector((state) => state.userSlice);
   const { isLogged } = useAppSelector((state) => state.userSlice);
+  const { errorMessage } = useAppSelector((state) => state.userSlice);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -46,10 +47,11 @@ export default function Registration() {
   };
 
   useEffect(() => {
+    dispatch(clearUserMessage());
     if (isLogged) {
       navigate('/articles');
     }
-  }, [navigate, isLogged]);
+  }, [navigate, dispatch, isLogged]);
 
   const { Black, Red } = InputBorder;
 

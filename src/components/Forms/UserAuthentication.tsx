@@ -5,15 +5,15 @@ import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import fetchUserAuthentication from 'store/thunks/fetchUserAuthentication';
 
-import InputBorder from '../InputBorder';
-import * as classes from '../Form.module.css';
+import InputBorder from './styles/InputBorder';
+import * as classes from './styles/Form.module.css';
 
 type LoginForm = {
   email: string;
   password: string;
 };
 
-export default function Authentication() {
+export default function UserAuthentication() {
   const { register, handleSubmit, formState } = useForm<LoginForm>({
     defaultValues: {
       email: '',

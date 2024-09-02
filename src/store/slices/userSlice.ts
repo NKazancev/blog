@@ -2,11 +2,13 @@ import { createSlice } from '@reduxjs/toolkit';
 
 interface IUserState {
   isLogged: boolean;
+  isUpdated: boolean;
   errorMessage: string;
 }
 
 const initialState: IUserState = {
   isLogged: false,
+  isUpdated: false,
   errorMessage: '',
 };
 
@@ -20,11 +22,27 @@ const userSlice = createSlice({
     removeUser(state) {
       state.isLogged = false;
     },
-    setMessage(state, action) {
+    updateUser(state) {
+      state.isUpdated = true;
+    },
+    resetUserStatus(state) {
+      state.isUpdated = false;
+    },
+    setErrorMessage(state, action) {
       state.errorMessage = action.payload;
+    },
+    clearUserMessage(state) {
+      state.errorMessage = '';
     },
   },
 });
 
 export default userSlice.reducer;
-export const { setUser, removeUser, setMessage } = userSlice.actions;
+export const {
+  setUser,
+  removeUser,
+  updateUser,
+  resetUserStatus,
+  setErrorMessage,
+  clearUserMessage,
+} = userSlice.actions;

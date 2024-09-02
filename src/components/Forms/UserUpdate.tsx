@@ -1,10 +1,13 @@
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
-import { useAppDispatch } from 'store/hooks';
+import { useAppDispatch, useAppSelector } from 'store/hooks';
 import fetchUserUpdate from 'store/thunks/fetchUserUpdate';
+import { clearUserMessage } from 'store/slices/userSlice';
 
-import * as classes from '../Form.module.css';
-import InputBorder from '../InputBorder';
+import * as classes from './styles/Form.module.css';
+import InputBorder from './styles/InputBorder';
 
 type EditProfileForm = {
   username: string;
@@ -13,11 +16,15 @@ type EditProfileForm = {
   avatar: string;
 };
 
-export default function EditProfile() {
+export default function UserUpdate() {
+  const { token, username, email } = JSON.parse(
+    localStorage.getItem('user') || '{}'
+  );
+
   const { register, handleSubmit, formState } = useForm<EditProfileForm>({
     defaultValues: {
-      username: '',
-      email: '',
+      username: username || '',
+      email: email || '',
       password: '',
       avatar: '',
     },
@@ -26,7 +33,10 @@ export default function EditProfile() {
 
   const { errors } = formState;
 
-  const { token } = JSON.parse(localStorage.getItem('user') || '{}');
+  const { errorMessage, isUpdated } = useAppSelector(
+    (state) => state.userSlice
+  );
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   const onSubmit = (data: EditProfileForm) => {
@@ -38,6 +48,13 @@ export default function EditProfile() {
     };
     dispatch(fetchUserUpdate({ token, userData: user }));
   };
+
+  useEffect(() => {
+    dispatch(clearUserMessage());
+    if (isUpdated) {
+      navigate('/articles');
+    }
+  }, [navigate, dispatch, isUpdated]);
 
   const { Black, Red } = InputBorder;
 
@@ -157,6 +174,7 @@ export default function EditProfile() {
                   })}
                 />
               </label>
+              {errorMessage !== '' && <strong>{errorMessage}</strong>}
               <strong>{errors.avatar?.message}</strong>
             </li>
           </ul>

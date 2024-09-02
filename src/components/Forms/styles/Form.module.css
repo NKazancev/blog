@@ -4,6 +4,12 @@
   padding-top: 140px;
 }
 
+.containerLarge {
+  max-width: 938px;
+  margin: 0 auto;
+  padding-top: 114px;
+}
+
 .body {
   padding: 45px 32px;
   background-color: hsl(0, 0%, 100%);
@@ -70,4 +76,41 @@
   margin-left: 2px;
   text-transform: capitalize;
   color: hsla(209, 100%, 55%, 1);
+}
+
+.tags,
+.tag {
+  display: flex;
+  column-gap: 17px;
+}
+
+.tags {
+  align-items: flex-end;
+}
+
+.tagBtnAdd,
+.tagBtnRemove {
+  height: 40px;
+  font-size: 16px;
+  font-weight: 400;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+}
+
+.tagBtnAdd {
+  width: 136px;
+  border: 1px solid hsla(209, 100%, 55%, 1);
+  border-radius: 4px;
+  color: hsla(209, 100%, 55%, 1);
+}
+
+.tagBtnRemove {
+  width: 120px;
+  border: 1px solid hsla(357, 91%, 55%, 1);
+  border-radius: 4px;
+  color: hsla(357, 91%, 55%, 1);
 }

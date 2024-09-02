@@ -11,10 +11,10 @@ export interface IArticleAuthor {
 }
 
 export interface IArticleDescription {
-  slug?: string;
+  slug: string | undefined;
   description: string;
   descriptionColor?: string;
-  favorited?: boolean;
+  favorited: boolean;
   favoritesCount: number;
   tagList: Array<string>;
   children?: React.ReactNode;
@@ -22,5 +22,5 @@ export interface IArticleDescription {
 
 export interface IArticle extends IArticleAuthor, IArticleDescription {
   title: string;
-  body?: string;
+  body: string;
 }

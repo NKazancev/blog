@@ -10,6 +10,7 @@ interface IArticlesState {
   isDeleted: boolean;
   isUpdated: boolean;
   errorMessage: string;
+  loadingStatus: string;
 }
 
 const initialState: IArticlesState = {
@@ -20,6 +21,7 @@ const initialState: IArticlesState = {
   isDeleted: false,
   isUpdated: false,
   errorMessage: '',
+  loadingStatus: 'idle',
 };
 
 const articlesSlice = createSlice({

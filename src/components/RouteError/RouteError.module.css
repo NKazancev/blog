@@ -2,10 +2,17 @@
   width: 100%;
   margin: 0 auto;
   padding-top: 200px;
-  font-size: 32px;
   color: hsla(0, 0, 0, 0.7);
+  text-align: center;
 }
 
 .text {
-  text-align: center;
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+.link {
+  text-decoration: underline;
+  color: hsla(209, 100%, 55%, 1);
+  font-size: 18px;
 }

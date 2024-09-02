@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import Markdown from 'react-markdown';
 
 import { useAppDispatch, useAppSelector } from 'store/hooks';
@@ -9,17 +9,16 @@ import fetchArticlePageAuth from 'store/thunks/fetchArticlePageAuth';
 
 import ArticleDescription from '../ArticleDescription/ArticleDescription';
 import ArticleAuthor from '../ArticleAuthor/ArticleAuthor';
+import Loader from '../../Loader/Loader';
+import ArticleButtons from '../ArticleButtons/ArticleButtons';
 
 import * as classes from './ArticlePage.module.css';
-import Confirmation from './Confirmation/Confirmation';
 
 export default function ArticlePage() {
   const { token, username } = JSON.parse(localStorage.getItem('user') || '{}');
   const { article } = useAppSelector((state) => state.articlesSlice);
   const { slug } = useParams();
   const dispatch = useAppDispatch();
-
-  const [isModalVisible, setIsModalVisible] = useState(false);
 
   useEffect(() => {
     dispatch(removeArticle());
@@ -30,51 +29,38 @@ export default function ArticlePage() {
   }, [dispatch, token, slug]);
 
   return (
-    article && (
-      <div className={classes.container}>
-        <div className={classes.header}>
-          <ArticleDescription
-            slug={slug}
-            description={article.description}
-            descriptionColor="hsla(0, 0%, 0%, 0.5)"
-            favorited={article.favorited}
-            favoritesCount={article.favoritesCount}
-            tagList={article.tagList}
-          >
-            <h3 className="article-title">{article.title}</h3>
-          </ArticleDescription>
+    <>
+      {!article && <Loader />}
 
-          <ArticleAuthor
-            author={article.author}
-            createdAt={article.createdAt}
-          />
+      {article && (
+        <div className={classes.container}>
+          <div className={classes.header}>
+            <ArticleDescription
+              slug={slug}
+              description={article.description}
+              descriptionColor="hsla(0, 0%, 0%, 0.5)"
+              favorited={article.favorited}
+              favoritesCount={article.favoritesCount}
+              tagList={article.tagList}
+            >
+              <h3 className="article-title">{article.title}</h3>
+            </ArticleDescription>
 
-          {article.author.username === username && (
-            <div className={classes.buttons}>
-              <button
-                type="button"
-                onClick={() => setIsModalVisible(true)}
-                className={classes.button}
-              >
-                Delete
-              </button>
-              {isModalVisible && (
-                <Confirmation
-                  slug={slug}
-                  onClose={() => setIsModalVisible(false)}
-                />
-              )}
-              <Link to="edit" className={classes.link}>
-                Edit
-              </Link>
-            </div>
-          )}
+            <ArticleAuthor
+              author={article.author}
+              createdAt={article.createdAt}
+            />
+
+            {article.author.username === username && (
+              <ArticleButtons slug={slug} />
+            )}
+          </div>
+
+          <div className={classes.body}>
+            <Markdown>{article.body}</Markdown>
+          </div>
         </div>
-
-        <div className={classes.body}>
-          <Markdown>{article.body}</Markdown>
-        </div>
-      </div>
-    )
+      )}
+    </>
   );
 }

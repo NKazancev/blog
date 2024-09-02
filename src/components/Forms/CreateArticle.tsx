@@ -7,10 +7,8 @@ import { IArticle } from 'models/article';
 import fetchArticleCreation from 'store/thunks/fetchArticleCreation';
 import fetchArticleUpdate from 'store/thunks/fetchArticleUpdate';
 
-import * as classes from '../Form.module.css';
-import InputBorder from '../InputBorder';
-
-import * as _classes from './CreateArticle.module.css';
+import * as classes from './styles/Form.module.css';
+import InputBorder from './styles/InputBorder';
 
 type CreateArticleForm = {
   title: string;
@@ -49,13 +47,13 @@ export default function CreateArticle(props: PropsForm) {
   const dispatch = useAppDispatch();
 
   const onSubmit = (data: CreateArticleForm) => {
-    const tagList = data.tags.reduce(
-      (acc: Array<string>, el: { tag: string }) => {
+    const tagList = data.tags
+      .reduce((acc: Array<string>, el: { tag: string }) => {
         acc.push(el.tag);
         return acc;
-      },
-      []
-    );
+      }, [])
+      .filter((tag) => tag !== '');
+
     if (!isEditing) {
       const createdArticle = {
         title: data.title,
@@ -88,7 +86,7 @@ export default function CreateArticle(props: PropsForm) {
   const { Black, Red } = InputBorder;
 
   return (
-    <div className={_classes.container}>
+    <div className={classes.containerLarge}>
       <div className={classes.body}>
         <h3 className={classes.title}>
           {isEditing ? 'Edit article' : 'Create new article'}
@@ -113,7 +111,7 @@ export default function CreateArticle(props: PropsForm) {
                 {...register('title', {
                   required: {
                     value: true,
-                    message: 'Title is required',
+                    message: 'Заголовок обязателен',
                   },
                 })}
               />
@@ -149,11 +147,11 @@ export default function CreateArticle(props: PropsForm) {
 
           <div className={classes.label}>
             Tags
-            <div className={_classes.tags}>
+            <div className={classes.tags}>
               <ul className={classes.list} style={{ rowGap: '5px' }}>
                 {fields.map((field, index) => {
                   return (
-                    <li key={field.id} className={_classes.tag}>
+                    <li key={field.id} className={classes.tag}>
                       <input
                         type="text"
                         style={{ width: '300px' }}
@@ -163,7 +161,7 @@ export default function CreateArticle(props: PropsForm) {
                         <button
                           type="button"
                           onClick={() => remove(index)}
-                          className={_classes.tagBtnRemove}
+                          className={classes.tagBtnRemove}
                         >
                           Delete
                         </button>
@@ -175,7 +173,7 @@ export default function CreateArticle(props: PropsForm) {
               <button
                 type="button"
                 onClick={() => append({ tag: '' })}
-                className={_classes.tagBtnAdd}
+                className={classes.tagBtnAdd}
               >
                 Add tag
               </button>
