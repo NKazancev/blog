@@ -61,6 +61,9 @@ export default function UserUpdate() {
       setError('username', { message: 'Such username already exists' });
       setError('email', { message: 'Such email already exists' });
     }
+    if (errorMessage === 'Only letters and digits are allowed') {
+      setError('username', { message: errorMessage });
+    }
   }, [setError, errorMessage]);
 
   useEffect(() => {

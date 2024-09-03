@@ -44,14 +44,19 @@ const fetchUserUpdate = createAsyncThunk(
         dispatch(clearErrorMessage());
         const errorData = await response.json();
         const error = await errorData.errors;
-        if (error.username)
+
+        if (error.username) {
           dispatch(setErrorMessage('Such username already exists'));
-        if (error.email) dispatch(setErrorMessage('Such email already exists'));
+        }
+        if (error.email) {
+          dispatch(setErrorMessage('Such email already exists'));
+        }
         if (error.email && error.username) {
           dispatch(setErrorMessage('Such username and email already exist'));
         }
-        if (error.email === 'is invalid' || error.username === 'is invalid')
-          dispatch(setErrorMessage('Entered data is incorrect'));
+        if (error.username === 'is invalid') {
+          dispatch(setErrorMessage('Only letters and digits are allowed'));
+        }
       }
     } catch (error) {
       if (error instanceof Error) {
