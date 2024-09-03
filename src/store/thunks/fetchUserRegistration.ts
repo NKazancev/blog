@@ -35,8 +35,8 @@ const fetchUserRegistration = createAsyncThunk(
         const errorData = await response.json();
         const error = await errorData.errors;
         if (error.username)
-          dispatch(setErrorMessage('Such username already exist'));
-        if (error.email) dispatch(setErrorMessage('Such email already exist'));
+          dispatch(setErrorMessage('Such username already exists'));
+        if (error.email) dispatch(setErrorMessage('Such email already exists'));
         if (error.email && error.username)
           dispatch(setErrorMessage('Such username and email already exist'));
       }

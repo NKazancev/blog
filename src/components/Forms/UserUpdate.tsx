@@ -51,15 +51,15 @@ export default function UserUpdate() {
   };
 
   useEffect(() => {
-    if (errorMessage === 'Such username already exist') {
+    if (errorMessage === 'Such username already exists') {
       setError('username', { message: errorMessage });
     }
-    if (errorMessage === 'Such email already exist') {
+    if (errorMessage === 'Such email already exists') {
       setError('email', { message: errorMessage });
     }
     if (errorMessage === 'Such username and email already exist') {
-      setError('username', { message: 'Such username already exist' });
-      setError('email', { message: 'Such email already exist' });
+      setError('username', { message: 'Such username already exists' });
+      setError('email', { message: 'Such email already exists' });
     }
   }, [setError, errorMessage]);
 
