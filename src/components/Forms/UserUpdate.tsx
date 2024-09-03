@@ -201,7 +201,7 @@ export default function UserUpdate() {
                     required: false,
                     pattern: {
                       value:
-                        /^(https?|ftp):\/\/[a-zA-Z0-9\-./&?=%#_]{2,}.[a-z]+/,
+                        /^(https?|ftp):\/\/[a-zA-Z0-9\-./&?=%#_]{2,}\.[a-z]+/,
                       message: 'URL is incorrect',
                     },
                   })}
