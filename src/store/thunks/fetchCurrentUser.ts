@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { setErrorMessage, setUser } from '../slices/userSlice';
+import { setUser } from '../slices/userSlice';
 
 const fetchCurrentUser = createAsyncThunk(
   'user/fetchCurrentUser',
@@ -16,9 +16,6 @@ const fetchCurrentUser = createAsyncThunk(
       if (response.ok) {
         const user = await response.json();
         dispatch(setUser(user));
-      }
-      if (response.status === 422) {
-        dispatch(setErrorMessage('Oops! Something went wrong'));
       }
     } catch (error) {
       if (error instanceof Error) {

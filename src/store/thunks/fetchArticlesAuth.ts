@@ -1,10 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import {
-  addArticles,
-  setArticlesNumber,
-  setErrorMesage,
-} from '../slices/articlesSlice';
+import { addArticles, setArticlesNumber } from '../slices/articlesSlice';
 
 type ArticlesDataAuth = {
   token: string;
@@ -24,12 +20,13 @@ const fetchArticlesAuth = createAsyncThunk(
           Authorization: `Token ${token}`,
         },
       });
-      const articles = await response.json();
-      dispatch(addArticles(articles.articles));
-      dispatch(setArticlesNumber(articles.articlesCount));
+      if (response.ok) {
+        const articles = await response.json();
+        dispatch(addArticles(articles.articles));
+        dispatch(setArticlesNumber(articles.articlesCount));
+      }
     } catch (error) {
       if (error instanceof Error) {
-        dispatch(setErrorMesage('Oops! Something went wrong'));
         rejectWithValue(error.message);
       }
     }

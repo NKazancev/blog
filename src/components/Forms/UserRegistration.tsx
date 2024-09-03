@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import fetchUserRegistration from 'store/thunks/fetchUserRegistration';
-import { clearUserMessage } from 'store/slices/userSlice';
+import { clearErrorMessage } from 'store/slices/userSlice';
 
 import InputBorder from './styles/InputBorder';
 import * as classes from './styles/Form.module.css';
@@ -18,16 +18,17 @@ type SignupForm = {
 };
 
 export default function UserRegistration() {
-  const { register, handleSubmit, watch, formState } = useForm<SignupForm>({
-    defaultValues: {
-      username: '',
-      email: '',
-      password: '',
-      repeatPassword: '',
-      isAgreed: false,
-    },
-    shouldFocusError: false,
-  });
+  const { register, handleSubmit, watch, setError, formState } =
+    useForm<SignupForm>({
+      defaultValues: {
+        username: '',
+        email: '',
+        password: '',
+        repeatPassword: '',
+        isAgreed: false,
+      },
+      shouldFocusError: false,
+    });
 
   const { errors } = formState;
   const password = watch('password');
@@ -47,7 +48,20 @@ export default function UserRegistration() {
   };
 
   useEffect(() => {
-    dispatch(clearUserMessage());
+    if (errorMessage === 'Such username already exist') {
+      setError('username', { message: errorMessage });
+    }
+    if (errorMessage === 'Such email already exist') {
+      setError('email', { message: errorMessage });
+    }
+    if (errorMessage === 'Such username and email already exist') {
+      setError('username', { message: 'Such username already exist' });
+      setError('email', { message: 'Such email already exist' });
+    }
+  }, [setError, errorMessage]);
+
+  useEffect(() => {
+    dispatch(clearErrorMessage());
     if (isLogged) {
       navigate('/articles');
     }
@@ -78,6 +92,7 @@ export default function UserRegistration() {
                       : { borderColor: Black }
                   }
                   placeholder="Username"
+                  autoComplete="off"
                   {...register('username', {
                     required: {
                       value: true,
@@ -90,6 +105,11 @@ export default function UserRegistration() {
                     maxLength: {
                       value: 20,
                       message: "Username shouldn't be more than 20 characters",
+                    },
+                    validate: (formField) => {
+                      if (formField.includes(' ')) {
+                        return 'Spaces are not allowed';
+                      }
                     },
                   })}
                 />
@@ -109,6 +129,7 @@ export default function UserRegistration() {
                       : { borderColor: Black }
                   }
                   placeholder="Email address"
+                  autoComplete="off"
                   {...register('email', {
                     required: {
                       value: true,
@@ -116,7 +137,7 @@ export default function UserRegistration() {
                     },
                     pattern: {
                       value: /^\S+@[a-z]+\.[a-z]+$/,
-                      message: 'Email is incorrect',
+                      message: 'Wrong email format',
                     },
                   })}
                 />
@@ -136,6 +157,7 @@ export default function UserRegistration() {
                       : { borderColor: Black }
                   }
                   placeholder="Password"
+                  autoComplete="off"
                   {...register('password', {
                     required: {
                       value: true,
@@ -148,6 +170,11 @@ export default function UserRegistration() {
                     maxLength: {
                       value: 40,
                       message: "Password shouldn't be more than 40 characters",
+                    },
+                    validate: (formField) => {
+                      if (formField.includes(' ')) {
+                        return 'Spaces are not allowed';
+                      }
                     },
                   })}
                 />
@@ -170,6 +197,7 @@ export default function UserRegistration() {
                       : { borderColor: Black }
                   }
                   placeholder="Password"
+                  autoComplete="off"
                   {...register('repeatPassword', {
                     required: {
                       value: true,
@@ -187,22 +215,24 @@ export default function UserRegistration() {
             </li>
           </ul>
 
-          <label htmlFor="sign-up-checkbox" className={classes.checkboxLabel}>
-            <input
-              type="checkbox"
-              id="sign-up-checkbox"
-              {...register('isAgreed', {
-                validate: (formField) => {
-                  if (formField !== true) {
-                    return 'Agreement is required';
-                  }
-                },
-              })}
-            />
-            I agree to the processing of my personal information
-          </label>
+          <p>
+            <label htmlFor="sign-up-checkbox" className={classes.checkboxLabel}>
+              <input
+                type="checkbox"
+                id="sign-up-checkbox"
+                {...register('isAgreed', {
+                  validate: (formField) => {
+                    if (formField !== true) {
+                      return 'Agreement is required';
+                    }
+                  },
+                })}
+              />
+              I agree to the processing of my personal information
+            </label>
+            <strong>{errors.isAgreed?.message}</strong>
+          </p>
 
-          {errorMessage !== '' && <strong>{errorMessage}</strong>}
           <button type="submit">Create</button>
         </form>
 

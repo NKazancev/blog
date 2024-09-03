@@ -19,7 +19,6 @@ export default function Articles() {
   const { token } = JSON.parse(localStorage.getItem('user') || '{}');
   const { page } = useParams();
   const { articles } = useAppSelector((state) => state.articlesSlice);
-  const { errorMessage } = useAppSelector((state) => state.articlesSlice);
 
   const currentPage = Number(page ?? 1);
   const offset = 5 * (currentPage - 1);
@@ -66,10 +65,6 @@ export default function Articles() {
           <ul className={classes.list}>{articlesList}</ul>
           <Pagination currentPage={currentPage} />
         </div>
-      )}
-
-      {errorMessage !== '' && !articles?.length && (
-        <div className={classes.error}>{errorMessage}</div>
       )}
     </main>
   );

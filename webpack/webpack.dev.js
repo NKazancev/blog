@@ -26,7 +26,7 @@ module.exports = merge(common, {
             options: {
               modules: {
                 mode: 'local',
-                localIdentName: '[path][name]__[local]',
+                localIdentName: '[path]__[local]',
               },
             },
           },

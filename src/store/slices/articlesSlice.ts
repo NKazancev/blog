@@ -9,8 +9,6 @@ interface IArticlesState {
   isCreated: boolean;
   isDeleted: boolean;
   isUpdated: boolean;
-  errorMessage: string;
-  loadingStatus: string;
 }
 
 const initialState: IArticlesState = {
@@ -20,8 +18,6 @@ const initialState: IArticlesState = {
   isCreated: false,
   isDeleted: false,
   isUpdated: false,
-  errorMessage: '',
-  loadingStatus: 'idle',
 };
 
 const articlesSlice = createSlice({
@@ -54,9 +50,6 @@ const articlesSlice = createSlice({
     removeArticles(state) {
       state.articles = null;
     },
-    setErrorMesage(state, action) {
-      state.errorMessage = action.payload;
-    },
     resetStatus(state) {
       state.isCreated = false;
       state.isDeleted = false;
@@ -75,6 +68,5 @@ export const {
   deleteArticle,
   removeArticle,
   removeArticles,
-  setErrorMesage,
   resetStatus,
 } = articlesSlice.actions;

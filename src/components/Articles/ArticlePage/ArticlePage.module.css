@@ -8,11 +8,15 @@
   padding: 15px;
   background-color: white;
   border-radius: 5px;
-
-  display: grid;
-  grid-template-columns: 1fr max-content;
-  align-items: start;
+  display: flex;
+  justify-content: space-between;
   column-gap: 50px;
+}
+
+.user {
+  display: flex;
+  flex-direction: column;
+  row-gap: 15px;
 }
 
 .body {
@@ -22,4 +26,5 @@
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
   color: hsla(0, 0%, 0%, 0.75);
+  word-break: break-word;
 }

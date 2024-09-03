@@ -33,6 +33,11 @@
   font-size: 18px;
 }
 
+.avatar {
+  width: 46px;
+  flex-shrink: 0;
+}
+
 .createBtn,
 .regBtn,
 .logoutBtn {

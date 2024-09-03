@@ -31,7 +31,7 @@ const userSlice = createSlice({
     setErrorMessage(state, action) {
       state.errorMessage = action.payload;
     },
-    clearUserMessage(state) {
+    clearErrorMessage(state) {
       state.errorMessage = '';
     },
   },
@@ -44,5 +44,5 @@ export const {
   updateUser,
   resetUserStatus,
   setErrorMessage,
-  clearUserMessage,
+  clearErrorMessage,
 } = userSlice.actions;

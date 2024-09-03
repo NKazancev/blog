@@ -4,10 +4,10 @@ import { useEffect } from 'react';
 
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import fetchUserUpdate from 'store/thunks/fetchUserUpdate';
-import { clearUserMessage } from 'store/slices/userSlice';
+import { clearErrorMessage } from 'store/slices/userSlice';
 
-import * as classes from './styles/Form.module.css';
 import InputBorder from './styles/InputBorder';
+import * as classes from './styles/Form.module.css';
 
 type EditProfileForm = {
   username: string;
@@ -17,19 +17,20 @@ type EditProfileForm = {
 };
 
 export default function UserUpdate() {
-  const { token, username, email } = JSON.parse(
+  const { token, username, email, image } = JSON.parse(
     localStorage.getItem('user') || '{}'
   );
 
-  const { register, handleSubmit, formState } = useForm<EditProfileForm>({
-    defaultValues: {
-      username: username || '',
-      email: email || '',
-      password: '',
-      avatar: '',
-    },
-    shouldFocusError: false,
-  });
+  const { register, handleSubmit, setError, formState } =
+    useForm<EditProfileForm>({
+      defaultValues: {
+        username: username || '',
+        email: email || '',
+        password: '',
+        avatar: image || '',
+      },
+      shouldFocusError: false,
+    });
 
   const { errors } = formState;
 
@@ -50,7 +51,20 @@ export default function UserUpdate() {
   };
 
   useEffect(() => {
-    dispatch(clearUserMessage());
+    if (errorMessage === 'Such username already exist') {
+      setError('username', { message: errorMessage });
+    }
+    if (errorMessage === 'Such email already exist') {
+      setError('email', { message: errorMessage });
+    }
+    if (errorMessage === 'Such username and email already exist') {
+      setError('username', { message: 'Such username already exist' });
+      setError('email', { message: 'Such email already exist' });
+    }
+  }, [setError, errorMessage]);
+
+  useEffect(() => {
+    dispatch(clearErrorMessage());
     if (isUpdated) {
       navigate('/articles');
     }
@@ -77,6 +91,7 @@ export default function UserUpdate() {
                       : { borderColor: Black }
                   }
                   placeholder="Username"
+                  autoComplete="off"
                   {...register('username', {
                     required: {
                       value: true,
@@ -89,6 +104,11 @@ export default function UserUpdate() {
                     maxLength: {
                       value: 20,
                       message: "Username shouldn't be more than 20 characters",
+                    },
+                    validate: (formField) => {
+                      if (formField.includes(' ')) {
+                        return 'Spaces are not allowed';
+                      }
                     },
                   })}
                 />
@@ -108,6 +128,7 @@ export default function UserUpdate() {
                       : { borderColor: Black }
                   }
                   placeholder="Email address"
+                  autoComplete="off"
                   {...register('email', {
                     required: {
                       value: true,
@@ -115,7 +136,7 @@ export default function UserUpdate() {
                     },
                     pattern: {
                       value: /^\S+@[a-z]+\.[a-z]+$/,
-                      message: 'Email is incorrect',
+                      message: 'Wrong email format',
                     },
                   })}
                 />
@@ -135,6 +156,7 @@ export default function UserUpdate() {
                       : { borderColor: Black }
                   }
                   placeholder="Password"
+                  autoComplete="off"
                   {...register('password', {
                     required: {
                       value: true,
@@ -147,6 +169,11 @@ export default function UserUpdate() {
                     maxLength: {
                       value: 40,
                       message: "Password shouldn't be more than 40 characters",
+                    },
+                    validate: (formField) => {
+                      if (formField.includes(' ')) {
+                        return 'Spaces are not allowed';
+                      }
                     },
                   })}
                 />
@@ -166,15 +193,20 @@ export default function UserUpdate() {
                       : { borderColor: Black }
                   }
                   placeholder="Avatar image"
+                  autoComplete="off"
                   {...register('avatar', {
+                    required: false,
                     pattern: {
-                      value: /^\S+\.[a-z]+$/,
-                      message: 'Url is incorrect',
+                      value:
+                        /^(https?|ftp):\/\/[a-zA-Z0-9\-./&?=%#_]{2,}.[a-z]+/,
+                      message: 'URL is incorrect',
                     },
                   })}
                 />
               </label>
-              {errorMessage !== '' && <strong>{errorMessage}</strong>}
+              {errorMessage === 'Entered data is incorrect' && (
+                <strong>{errorMessage}</strong>
+              )}
               <strong>{errors.avatar?.message}</strong>
             </li>
           </ul>

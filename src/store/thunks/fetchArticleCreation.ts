@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { createArticle, setErrorMesage } from '../slices/articlesSlice';
+import { createArticle } from '../slices/articlesSlice';
 
 type ArticleCreationData = {
   token: string;
@@ -33,7 +33,6 @@ const fetchArticleCreation = createAsyncThunk(
       }
     } catch (error) {
       if (error instanceof Error) {
-        dispatch(setErrorMesage('Oops! Something went wrong'));
         rejectWithValue(error.message);
       }
     }

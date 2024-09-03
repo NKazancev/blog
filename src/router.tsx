@@ -24,9 +24,10 @@ const router = createHashRouter([
       {
         path: 'articles',
         element: <Articles />,
+        errorElement: <RouteError />,
       },
       {
-        path: 'articles/page/:page',
+        path: '/articles/page/:page',
         element: <Articles />,
       },
       {

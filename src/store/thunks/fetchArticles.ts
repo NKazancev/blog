@@ -1,10 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import {
-  addArticles,
-  setArticlesNumber,
-  setErrorMesage,
-} from '../slices/articlesSlice';
+import { addArticles, setArticlesNumber } from '../slices/articlesSlice';
 
 const fetchArticles = createAsyncThunk(
   'articles/fetchArticles',
@@ -20,7 +16,6 @@ const fetchArticles = createAsyncThunk(
       }
     } catch (error) {
       if (error instanceof Error) {
-        dispatch(setErrorMesage('Oops! Something went wrong'));
         rejectWithValue(error.message);
       }
     }

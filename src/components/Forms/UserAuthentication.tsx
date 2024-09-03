@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import fetchUserAuthentication from 'store/thunks/fetchUserAuthentication';
+import { clearErrorMessage } from 'store/slices/userSlice';
 
 import InputBorder from './styles/InputBorder';
 import * as classes from './styles/Form.module.css';
@@ -33,10 +34,11 @@ export default function UserAuthentication() {
   };
 
   useEffect(() => {
+    dispatch(clearErrorMessage());
     if (isLogged) {
       navigate('/articles');
     }
-  }, [navigate, isLogged]);
+  }, [dispatch, navigate, isLogged]);
 
   const { Black, Red } = InputBorder;
 
@@ -63,6 +65,7 @@ export default function UserAuthentication() {
                       : { borderColor: Black }
                   }
                   placeholder="Email address"
+                  autoComplete="off"
                   {...register('email', {
                     required: {
                       value: true,
@@ -70,7 +73,7 @@ export default function UserAuthentication() {
                     },
                     pattern: {
                       value: /^\S+@[a-z]+\.[a-z]+$/,
-                      message: 'Email is incorrect',
+                      message: 'Wrong email format',
                     },
                   })}
                 />
@@ -90,6 +93,7 @@ export default function UserAuthentication() {
                       : { borderColor: Black }
                   }
                   placeholder="Password"
+                  autoComplete="off"
                   {...register('password', {
                     required: {
                       value: true,

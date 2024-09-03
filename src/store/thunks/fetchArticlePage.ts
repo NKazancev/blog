@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { setErrorMesage, setOneArticle } from '../slices/articlesSlice';
+import { setOneArticle } from '../slices/articlesSlice';
 
 const fetchArticlePage = createAsyncThunk(
   'articles/fetchArticlePage',
@@ -9,11 +9,12 @@ const fetchArticlePage = createAsyncThunk(
 
     try {
       const response = await fetch(url);
-      const data = await response.json();
-      dispatch(setOneArticle(data.article));
+      if (response.ok) {
+        const data = await response.json();
+        dispatch(setOneArticle(data.article));
+      }
     } catch (error) {
       if (error instanceof Error) {
-        dispatch(setErrorMesage('Oops! Something went wrong'));
         rejectWithValue(error.message);
       }
     }

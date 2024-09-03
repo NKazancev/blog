@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { deleteArticle, setErrorMesage } from '../slices/articlesSlice';
+import { deleteArticle } from '../slices/articlesSlice';
 
 type ArticleDeletionData = {
   token: string;
@@ -25,7 +25,6 @@ const fetchArticleDeletion = createAsyncThunk(
       }
     } catch (error) {
       if (error instanceof Error) {
-        dispatch(setErrorMesage('Oops! Something went wrong'));
         rejectWithValue(error.message);
       }
     }

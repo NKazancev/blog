@@ -1,6 +1,11 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { setErrorMessage, setUser, updateUser } from '../slices/userSlice';
+import {
+  clearErrorMessage,
+  setErrorMessage,
+  setUser,
+  updateUser,
+} from '../slices/userSlice';
 
 type UpdateUserData = {
   token: string;
@@ -36,10 +41,11 @@ const fetchUserUpdate = createAsyncThunk(
         localStorage.setItem('user', JSON.stringify(user.user));
       }
       if (response.status === 422) {
+        dispatch(clearErrorMessage());
         const errorData = await response.json();
         const error = await errorData.errors;
         if (error.username)
-          dispatch(setErrorMessage('Such name already exist'));
+          dispatch(setErrorMessage('Such username already exist'));
         if (error.email) dispatch(setErrorMessage('Such email already exist'));
         if (error.email && error.username) {
           dispatch(setErrorMessage('Such username and email already exist'));
@@ -49,7 +55,6 @@ const fetchUserUpdate = createAsyncThunk(
       }
     } catch (error) {
       if (error instanceof Error) {
-        dispatch(setErrorMessage('Oops! Something went wrong'));
         rejectWithValue(error.message);
       }
     }

@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { setErrorMesage, setOneArticle } from '../slices/articlesSlice';
+import { setOneArticle } from '../slices/articlesSlice';
 
 type ArticlePageAuth = {
   token: string;
@@ -20,11 +20,12 @@ const fetchArticlePageAuth = createAsyncThunk(
           Authorization: `Token ${token}`,
         },
       });
-      const article = await response.json();
-      dispatch(setOneArticle(article.article));
+      if (response.ok) {
+        const article = await response.json();
+        dispatch(setOneArticle(article.article));
+      }
     } catch (error) {
       if (error instanceof Error) {
-        dispatch(setErrorMesage('Oops! Something went wrong'));
         rejectWithValue(error.message);
       }
     }

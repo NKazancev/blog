@@ -7,8 +7,8 @@ import { IArticle } from 'models/article';
 import fetchArticleCreation from 'store/thunks/fetchArticleCreation';
 import fetchArticleUpdate from 'store/thunks/fetchArticleUpdate';
 
-import * as classes from './styles/Form.module.css';
 import InputBorder from './styles/InputBorder';
+import * as classes from './styles/Form.module.css';
 
 type CreateArticleForm = {
   title: string;
@@ -111,7 +111,7 @@ export default function CreateArticle(props: PropsForm) {
                 {...register('title', {
                   required: {
                     value: true,
-                    message: 'Заголовок обязателен',
+                    message: 'Title is required',
                   },
                 })}
               />

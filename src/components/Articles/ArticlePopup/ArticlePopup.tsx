@@ -2,13 +2,17 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from 'store/hooks';
-import mark from 'assets/exclamation.png';
-import IConfirmationModal from 'models/modal';
 import fetchArticleDeletion from 'store/thunks/fetchArticleDeletion';
+import mark from 'assets/exclamation.png';
 
 import * as classes from './ArticlePopup.module.css';
 
-export default function ArticlePopup(props: IConfirmationModal) {
+type ArticlePopup = {
+  slug: string | undefined;
+  onClose: () => void;
+};
+
+export default function ArticlePopup(props: ArticlePopup) {
   const { token } = JSON.parse(localStorage.getItem('user') || '{}');
   const { slug, onClose } = props;
   const { isDeleted } = useAppSelector((state) => state.articlesSlice);

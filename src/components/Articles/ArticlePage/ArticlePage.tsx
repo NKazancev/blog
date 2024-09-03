@@ -46,14 +46,16 @@ export default function ArticlePage() {
               <h3 className="article-title">{article.title}</h3>
             </ArticleDescription>
 
-            <ArticleAuthor
-              author={article.author}
-              createdAt={article.createdAt}
-            />
+            <div className={classes.user}>
+              <ArticleAuthor
+                author={article.author}
+                createdAt={article.createdAt}
+              />
 
-            {article.author.username === username && (
-              <ArticleButtons slug={slug} />
-            )}
+              {article.author.username === username && (
+                <ArticleButtons slug={slug} />
+              )}
+            </div>
           </div>
 
           <div className={classes.body}>

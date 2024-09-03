@@ -1,6 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { setErrorMessage, setUser } from '../slices/userSlice';
+import {
+  clearErrorMessage,
+  setErrorMessage,
+  setUser,
+} from '../slices/userSlice';
 
 type RegistrationUserData = {
   username: string;
@@ -27,6 +31,7 @@ const fetchUserRegistration = createAsyncThunk(
         localStorage.setItem('user', JSON.stringify(user.user));
       }
       if (response.status === 422) {
+        dispatch(clearErrorMessage());
         const errorData = await response.json();
         const error = await errorData.errors;
         if (error.username)

@@ -8,7 +8,7 @@ export default function RouteError() {
   if (isRouteErrorResponse(error)) {
     return (
       <div className={classes.container}>
-        <p className={classes.text}>Такой страницы не существует.</p>
+        <p className={classes.text}>Such page does not exist.</p>
         <Link to="/" className={classes.link}>
           Перейти на главную
         </Link>

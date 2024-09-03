@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 
-import { useAppDispatch, useAppSelector } from 'store/hooks';
+import { useAppDispatch } from 'store/hooks';
 import { removeUser } from 'store/slices/userSlice';
 import fetchCurrentUser from 'store/thunks/fetchCurrentUser';
 import avatar from 'assets/avatar.png';
@@ -9,8 +9,9 @@ import avatar from 'assets/avatar.png';
 import * as classes from './Header.module.css';
 
 export default function Header() {
-  const { token, username } = JSON.parse(localStorage.getItem('user') || '{}');
-  const { isLogged } = useAppSelector((state) => state.userSlice);
+  const { token, username, image } = JSON.parse(
+    localStorage.getItem('user') || '{}'
+  );
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -30,15 +31,25 @@ export default function Header() {
         <Link to="/">Realworld Blog</Link>
       </div>
 
-      {isLogged && (
+      {token && (
         <div className={classes.userPanel}>
           <Link to="new-article" className={classes.createBtn}>
             Create article
           </Link>
+
           <span className={classes.username}>{username}</span>
-          <Link to="user">
-            <img src={avatar} alt="avatar" />
+
+          <Link to="user" className={classes.avatar}>
+            <img
+              src={
+                image === '' || image === null || image === undefined
+                  ? avatar
+                  : image
+              }
+              alt="avatar"
+            />
           </Link>
+
           <button
             type="button"
             onClick={onLogout}
@@ -49,7 +60,7 @@ export default function Header() {
         </div>
       )}
 
-      {!isLogged && (
+      {!token && (
         <div className={classes.actionsPanel}>
           <Link to="sign-in">Sign In</Link>
           <Link to="sign-up" className={classes.regBtn}>
