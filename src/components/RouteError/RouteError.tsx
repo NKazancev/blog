@@ -10,7 +10,7 @@ export default function RouteError() {
       <div className={classes.container}>
         <p className={classes.text}>Such page does not exist.</p>
         <Link to="/" className={classes.link}>
-          Перейти на главную
+          Back to the homepage
         </Link>
       </div>
     );
