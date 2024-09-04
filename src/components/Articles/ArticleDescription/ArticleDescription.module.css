@@ -14,7 +14,7 @@
 .likesBtn {
   color: inherit;
   font-size: 12px;
-  cursor: pointer;
+  /* cursor: pointer; */
 
   display: flex;
   align-items: center;

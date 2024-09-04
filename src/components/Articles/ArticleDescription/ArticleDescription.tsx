@@ -57,6 +57,7 @@ export default function ArticleDescription(props: IArticleDescription) {
           type="button"
           onClick={likeArticle}
           className={classes.likesBtn}
+          style={{ cursor: token ? 'pointer' : 'auto' }}
         >
           {!isFavorited && <img src={heartIcon} alt="heart-icon" />}
           {isFavorited && <img src={heartIconFill} alt="heart-icon" />}
