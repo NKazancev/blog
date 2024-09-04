@@ -70,6 +70,7 @@ module.exports = {
     'lines-between-class-members': 'off',
     'default-param-last': 'off',
     'prefer-template': 'off',
+    'no-useless-escape': 'off',
   },
   overrides: [
     {

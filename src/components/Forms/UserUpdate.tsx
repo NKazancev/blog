@@ -200,8 +200,7 @@ export default function UserUpdate() {
                   {...register('avatar', {
                     required: false,
                     pattern: {
-                      value:
-                        /^(https?|ftp):\/\/[a-zA-Z0-9\-./&?=%#_]{2,}\.[a-z]+/,
+                      value: /^(https?|ftp):\/\/\S+\.\S+$/,
                       message: 'URL is incorrect',
                     },
                   })}
