@@ -15,13 +15,14 @@ type LoginForm = {
 };
 
 export default function UserAuthentication() {
-  const { register, handleSubmit, formState } = useForm<LoginForm>({
-    defaultValues: {
-      email: '',
-      password: '',
-    },
-    shouldFocusError: false,
-  });
+  const { register, handleSubmit, setError, clearErrors, formState } =
+    useForm<LoginForm>({
+      defaultValues: {
+        email: '',
+        password: '',
+      },
+      shouldFocusError: false,
+    });
 
   const { errors } = formState;
 
@@ -34,11 +35,19 @@ export default function UserAuthentication() {
   };
 
   useEffect(() => {
+    if (errorMessage === 'Email or password is incorrect') {
+      setError('email', { message: ' ' });
+      setError('password', { message: ' ' });
+    }
+  }, [setError, errorMessage]);
+
+  useEffect(() => {
+    clearErrors();
     dispatch(clearErrorMessage());
     if (isLogged) {
       navigate('/articles');
     }
-  }, [dispatch, navigate, isLogged]);
+  }, [dispatch, navigate, clearErrors, isLogged]);
 
   const { Black, Red } = InputBorder;
 

@@ -4,7 +4,6 @@ import { useEffect } from 'react';
 
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import fetchUserUpdate from 'store/thunks/fetchUserUpdate';
-import { clearErrorMessage } from 'store/slices/userSlice';
 
 import InputBorder from './styles/InputBorder';
 import * as classes from './styles/Form.module.css';
@@ -21,7 +20,7 @@ export default function UserUpdate() {
     localStorage.getItem('user') || '{}'
   );
 
-  const { register, handleSubmit, setError, formState } =
+  const { register, handleSubmit, setError, clearErrors, formState } =
     useForm<EditProfileForm>({
       defaultValues: {
         username: username || '',
@@ -67,11 +66,11 @@ export default function UserUpdate() {
   }, [setError, errorMessage]);
 
   useEffect(() => {
-    dispatch(clearErrorMessage());
+    clearErrors();
     if (isUpdated) {
       navigate('/articles');
     }
-  }, [navigate, dispatch, isUpdated]);
+  }, [navigate, clearErrors, isUpdated]);
 
   const { Black, Red } = InputBorder;
 
@@ -206,9 +205,6 @@ export default function UserUpdate() {
                   })}
                 />
               </label>
-              {errorMessage === 'Entered data is incorrect' && (
-                <strong>{errorMessage}</strong>
-              )}
               <strong>{errors.avatar?.message}</strong>
             </li>
           </ul>

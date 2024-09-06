@@ -4,7 +4,6 @@ import { useEffect } from 'react';
 
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import fetchUserRegistration from 'store/thunks/fetchUserRegistration';
-import { clearErrorMessage } from 'store/slices/userSlice';
 
 import InputBorder from './styles/InputBorder';
 import * as classes from './styles/Form.module.css';
@@ -18,7 +17,7 @@ type SignupForm = {
 };
 
 export default function UserRegistration() {
-  const { register, handleSubmit, watch, setError, formState } =
+  const { register, handleSubmit, watch, setError, clearErrors, formState } =
     useForm<SignupForm>({
       defaultValues: {
         username: '',
@@ -64,11 +63,11 @@ export default function UserRegistration() {
   }, [setError, errorMessage]);
 
   useEffect(() => {
-    dispatch(clearErrorMessage());
+    clearErrors();
     if (isLogged) {
       navigate('/articles');
     }
-  }, [navigate, dispatch, isLogged]);
+  }, [navigate, clearErrors, isLogged]);
 
   const { Black, Red } = InputBorder;
 
