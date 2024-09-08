@@ -12,6 +12,7 @@
 }
 
 .likesBtn {
+  flex-shrink: 0;
   color: inherit;
   font-size: 12px;
 
